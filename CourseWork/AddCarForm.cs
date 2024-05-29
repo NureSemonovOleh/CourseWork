@@ -15,6 +15,7 @@ namespace CourseWork
     {
         private DataBase dataBase;
         private Dictionary<string, List<string>> carModels;
+        public event EventHandler CarAdded;
         public AddCarForm(DataBase database)
         {
             InitializeCarModels();
@@ -57,10 +58,29 @@ namespace CourseWork
             }
             cmbModels.SelectedIndex = 0;
         }
+        
 
         private void cmbModels_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
+        private void btnAddCar_Click(object sender, EventArgs e)
+        {
+            var car = new Car
+            {
+                Id = dataBase.Cars.Count > 0 ? dataBase.Cars.Max(x => x.Id) + 1 : 1,
+                Brand = cmbBrand.SelectedItem.ToString(),
+                Model = cmbModels.SelectedItem.ToString(),
+                Year = int.Parse(txtYear.Text),
+                MaxSpeed = int.Parse(txtMaxSpeed.Text),
+                EngineVolume = decimal.Parse(txtEngineVolume.Text),
+                Price = int.Parse(txtPrice.Text)
+            };
+            dataBase.Cars.Add(car);
+            CarAdded?.Invoke(this, EventArgs.Empty);
+            this.Close();
+            
+        }
     }
+
 }

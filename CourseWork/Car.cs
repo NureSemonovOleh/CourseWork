@@ -10,11 +10,12 @@ namespace CourseWork
     {
         public uint Id { get; set; }
         public string Brand { get; set; }
+        public string Model { get; set; }
         public int Year { get; set; }
         public string Condition { get; set; }
-        public uint MaxSpeed { get; set; }
+        public int MaxSpeed { get; set; }
         public decimal EngineVolume { get; set; }
-        public uint Price { get; set; }
+        public int Price { get; set; }
 
 
 
