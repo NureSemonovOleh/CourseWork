@@ -1,6 +1,6 @@
 ﻿namespace CourseWork
 {
-    partial class AddCarForm
+    partial class EditCarForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddCarForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditCarForm));
             cmbBrand = new ComboBox();
             cmbModels = new ComboBox();
             cmbCondition = new ComboBox();
@@ -36,7 +36,7 @@
             txtMaxSpeed = new TextBox();
             txtEngineVolume = new TextBox();
             txtPrice = new TextBox();
-            btnAddCar = new Button();
+            btnEditCar = new Button();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -55,6 +55,7 @@
             cmbBrand.Size = new Size(121, 23);
             cmbBrand.Sorted = true;
             cmbBrand.TabIndex = 0;
+            cmbBrand.SelectedIndexChanged += cmbBrand_SelectedIndexChanged;
             // 
             // cmbModels
             // 
@@ -65,12 +66,13 @@
             cmbModels.Size = new Size(121, 23);
             cmbModels.Sorted = true;
             cmbModels.TabIndex = 1;
-            cmbModels.SelectedIndexChanged += cmbModels_SelectedIndexChanged;
+
             // 
             // cmbCondition
             // 
             cmbCondition.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCondition.FormattingEnabled = true;
+            cmbCondition.Items.AddRange(new object[] { "New", "Used", "Old" });
             cmbCondition.Location = new Point(12, 115);
             cmbCondition.Name = "cmbCondition";
             cmbCondition.Size = new Size(121, 23);
@@ -112,15 +114,15 @@
             txtPrice.TabIndex = 6;
             txtPrice.KeyPress += txtPrice_KeyPress;
             // 
-            // btnAddCar
+            // btnEditCar
             // 
-            btnAddCar.Location = new Point(96, 337);
-            btnAddCar.Name = "btnAddCar";
-            btnAddCar.Size = new Size(159, 106);
-            btnAddCar.TabIndex = 7;
-            btnAddCar.Text = "Додати авто";
-            btnAddCar.UseVisualStyleBackColor = true;
-            btnAddCar.Click += btnAddCar_Click;
+            btnEditCar.Location = new Point(96, 337);
+            btnEditCar.Name = "btnEditCar";
+            btnEditCar.Size = new Size(159, 106);
+            btnEditCar.TabIndex = 7;
+            btnEditCar.Text = "Редагувати авто";
+            btnEditCar.UseVisualStyleBackColor = true;
+            btnEditCar.Click += btnEditCar_Click;
             // 
             // label1
             // 
@@ -185,7 +187,7 @@
             label7.TabIndex = 14;
             label7.Text = "Ціна";
             // 
-            // AddCarForm
+            // EditCarForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -197,7 +199,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(btnAddCar);
+            Controls.Add(btnEditCar);
             Controls.Add(txtPrice);
             Controls.Add(txtEngineVolume);
             Controls.Add(txtMaxSpeed);
@@ -207,9 +209,9 @@
             Controls.Add(cmbBrand);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
-            Name = "AddCarForm";
+            Name = "EditCarForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Додати авто";
+            Text = "Редагувати авто";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -226,7 +228,7 @@
         private TextBox txtMaxSpeed;
         private TextBox txtEngineVolume;
         private TextBox txtPrice;
-        private Button btnAddCar;
+        private Button btnEditCar;
         private Label label1;
         private Label label2;
         private Label label3;
@@ -234,5 +236,7 @@
         private Label label5;
         private Label label6;
         private Label label7;
+
+
     }
 }

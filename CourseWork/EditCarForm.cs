@@ -11,18 +11,20 @@ using System.Windows.Forms;
 
 namespace CourseWork
 {
-
-    public partial class AddCarForm : Form
+    public partial class EditCarForm : Form
     {
         private DataBase dataBase;
+        private Car carToEdit;
         private Dictionary<string, List<string>> carModels;
-        public event EventHandler CarAdded;
-        public AddCarForm(DataBase database)
+        public event EventHandler CarEdited;
+        public EditCarForm(DataBase database, Car car)
         {
             InitializeCarModels();
             InitializeComponent();
-            InitializeForm();
             dataBase = database;
+            carToEdit = car;
+            LoadData();
+
 
         }
         private void InitializeCarModels()
@@ -35,37 +37,33 @@ namespace CourseWork
             };
 
         }
-        private void InitializeForm()
+        private void LoadData()
         {
             cmbBrand.Items.AddRange(carModels.Keys.ToArray());
-            cmbBrand.SelectedIndexChanged += CmbBrand_SelectedIndexChanged;
-            cmbBrand.SelectedIndex = 0;
-            UpdateModels();
-            cmbCondition.Items.AddRange(new string[] { "New", "Old", "Crashed" });
-        }
-
-        private void CmbBrand_SelectedIndexChanged(object? sender, EventArgs e)
-        {
-            UpdateModels();
-        }
-
-        private void UpdateModels()
-        {
-            cmbModels.Items.Clear();
-            string selectedBrand = cmbBrand.SelectedItem.ToString();
-            if (carModels.ContainsKey(selectedBrand))
+            cmbBrand.Text = carToEdit.Brand;
+            if (carModels.ContainsKey(carToEdit.Brand))
             {
+                cmbModels.Items.AddRange(carModels[carToEdit.Brand].ToArray());
+                cmbModels.Text = carToEdit.Model;
+            }
+            cmbModels.Text = carToEdit.Model;
+            cmbCondition.Text = carToEdit.Condition;
+            txtYear.Text = carToEdit.Year.ToString();
+            txtMaxSpeed.Text = carToEdit.MaxSpeed.ToString();
+            txtEngineVolume.Text = carToEdit.EngineVolume.ToString();
+            txtPrice.Text = carToEdit.Price.ToString();
+        }
+        private void cmbBrand_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbBrand.SelectedItem != null)
+            {
+                var selectedBrand = cmbBrand.SelectedItem.ToString();
+                cmbModels.Items.Clear();
                 cmbModels.Items.AddRange(carModels[selectedBrand].ToArray());
             }
-            cmbModels.SelectedIndex = 0;
         }
-        
 
-        private void cmbModels_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void btnAddCar_Click(object sender, EventArgs e)
+        private void btnEditCar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -104,44 +102,26 @@ namespace CourseWork
                     MessageBox.Show("Будь ласка, вкажіть вірну ціну.");
                     return;
                 }
+                carToEdit.Brand = cmbBrand.Text;
+                carToEdit.Model = cmbModels.Text;
+                carToEdit.Condition = cmbCondition.Text;
+                carToEdit.Year = int.Parse(txtYear.Text);
+                carToEdit.MaxSpeed = int.Parse(txtMaxSpeed.Text);
+                carToEdit.EngineVolume = decimal.Parse(txtEngineVolume.Text);
+                carToEdit.Price = int.Parse(txtPrice.Text);
 
-
-                var car = new Car
-                {
-                    Id = dataBase.Cars.Count > 0 ? dataBase.Cars.Max(x => x.Id) + 1 : 1,
-                    Brand = cmbBrand.SelectedItem.ToString(),
-                    Model = cmbModels.SelectedItem.ToString(),
-                    Condition = cmbCondition.SelectedItem.ToString(),
-                    Year = int.Parse(txtYear.Text),
-                    MaxSpeed = int.Parse(txtMaxSpeed.Text),
-                    EngineVolume = decimal.Parse(txtEngineVolume.Text),
-                    Price = int.Parse(txtPrice.Text)
-                };
-                dataBase.Cars.Add(car);
-                CarAdded?.Invoke(this, EventArgs.Empty);
+                CarEdited?.Invoke(this, EventArgs.Empty);
                 this.Close();
-            }
-            catch (FormatException ex) {
-                MessageBox.Show($"Error parsing input: {ex.Message}");
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error adding car:{ex.Message}");
-            }
-
-            
-        }
-        private void txtYear_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
+                MessageBox.Show($"Error editing car: {ex.Message}");
             }
         }
         private void txtEngineVolume_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ','){
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',')
+            {
                 e.Handled = true;
             }
             if (e.KeyChar == ',' && (sender as TextBox).Text.IndexOf(',') > -1)
@@ -164,7 +144,12 @@ namespace CourseWork
                 e.Handled = true;
             }
         }
-        
+        private void txtYear_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
     }
-
 }

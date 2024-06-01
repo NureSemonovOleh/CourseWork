@@ -11,9 +11,9 @@ namespace CourseWork
         public string Name { get; set; }
         public string Number { get; set; }
         public string PrefferedBrand { get; set; }
-        public uint PrefferedYear { get; set; }
-        public uint MinMaxSpeed { get; set; }
+        public int PrefferedYear { get; set; }
+        public int MinMaxSpeed { get; set; }
         public string PrefferedCondition { get; set; }
-        public uint Budget { get; set; }
+        public int Budget { get; set; }
     }
 }
