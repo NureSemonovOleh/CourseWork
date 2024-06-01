@@ -8,11 +8,11 @@ namespace CourseWork
 {
     public class Customer
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Number { get; set; }
         public string PrefferedBrand { get; set; }
         public int PrefferedYear { get; set; }
-        public int MinMaxSpeed { get; set; }
         public string PrefferedCondition { get; set; }
         public int Budget { get; set; }
     }

@@ -15,6 +15,20 @@ namespace CourseWork
         public List<Car> Cars = new List<Car>();
         public List<Customer> Customers = new List<Customer>();
         public List<Request> Requests = new List<Request>();
+        public Dictionary<string, List<string>> carModels;
+        public DataBase() {
+            InitializeCarModels();
+        }
+        private void InitializeCarModels()
+        {
+            carModels = new Dictionary<string, List<string>>
+            {
+                {"Toyota", new List<string> {"Supra","Corolla","Chaser"} },
+                {"Nissan", new List<string>{"Skyline","240sx","350z"} },
+                {"Ford", new List<string>{"Mustang", "GT", "Focus"} }
+            };
+
+        }
         public async Task Save(string FilePath)
         {
             var options = new JsonSerializerOptions

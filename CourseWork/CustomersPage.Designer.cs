@@ -1,4 +1,6 @@
-﻿namespace CourseWork
+﻿using System.Windows.Forms;
+
+namespace CourseWork
 {
     partial class CustomersPage
     {
@@ -29,12 +31,12 @@
         private void InitializeComponent()
         {
             dgvCustomers = new DataGridView();
+            dgvTxtId = new DataGridViewTextBoxColumn();
             dgvTxtColumnName = new DataGridViewTextBoxColumn();
             dgvTxtColumnNumber = new DataGridViewTextBoxColumn();
             dgvTxtColumnPrefferedBrand = new DataGridViewTextBoxColumn();
             dgvTxtColumnPrefferedCondition = new DataGridViewTextBoxColumn();
             dgvTxtColumnPrefferedYear = new DataGridViewTextBoxColumn();
-            dgvTxtColumnMinMaxSpeed = new DataGridViewTextBoxColumn();
             dgvTxtColumnBudget = new DataGridViewTextBoxColumn();
             btnAddNew = new Button();
             btnDeleteCustomer = new Button();
@@ -43,7 +45,19 @@
             btnMainPage = new Button();
             btnCustomerPage = new Button();
             btnRequestPage = new Button();
+            menuStrip1 = new MenuStrip();
+            fileToolStripMenuItem = new ToolStripMenuItem();
+            saveFileMenuItem = new ToolStripMenuItem();
+            loadFileToolStripMenuItem = new ToolStripMenuItem();
+            manageToolStripMenuItem = new ToolStripMenuItem();
+            addCarToolStripMenuItem = new ToolStripMenuItem();
+            addCustomerToolStripMenuItem = new ToolStripMenuItem();
+            оформитиЗаявкуToolStripMenuItem = new ToolStripMenuItem();
+            helpToolStripMenuItem = new ToolStripMenuItem();
+            aboutToolStripMenuItem = new ToolStripMenuItem();
+            helpButtonsToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dgvCustomers).BeginInit();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // dgvCustomers
@@ -52,12 +66,19 @@
             dgvCustomers.AllowUserToDeleteRows = false;
             dgvCustomers.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dgvCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCustomers.Columns.AddRange(new DataGridViewColumn[] { dgvTxtColumnName, dgvTxtColumnNumber, dgvTxtColumnPrefferedBrand, dgvTxtColumnPrefferedCondition, dgvTxtColumnPrefferedYear, dgvTxtColumnMinMaxSpeed, dgvTxtColumnBudget });
-            dgvCustomers.Location = new Point(4, 150);
+            dgvCustomers.Columns.AddRange(new DataGridViewColumn[] { dgvTxtId, dgvTxtColumnName, dgvTxtColumnNumber, dgvTxtColumnPrefferedBrand, dgvTxtColumnPrefferedCondition, dgvTxtColumnPrefferedYear, dgvTxtColumnBudget });
+            dgvCustomers.Location = new Point(12, 95);
             dgvCustomers.Name = "dgvCustomers";
             dgvCustomers.ScrollBars = ScrollBars.Vertical;
-            dgvCustomers.Size = new Size(573, 167);
+            dgvCustomers.Size = new Size(553, 206);
             dgvCustomers.TabIndex = 0;
+            // 
+            // dgvTxtId
+            // 
+            dgvTxtId.HeaderText = "ID";
+            dgvTxtId.MaxInputLength = 3;
+            dgvTxtId.Name = "dgvTxtId";
+            dgvTxtId.Width = 50;
             // 
             // dgvTxtColumnName
             // 
@@ -94,14 +115,7 @@
             dgvTxtColumnPrefferedYear.MaxInputLength = 4;
             dgvTxtColumnPrefferedYear.Name = "dgvTxtColumnPrefferedYear";
             dgvTxtColumnPrefferedYear.ReadOnly = true;
-            dgvTxtColumnPrefferedYear.Width = 53;
-            // 
-            // dgvTxtColumnMinMaxSpeed
-            // 
-            dgvTxtColumnMinMaxSpeed.HeaderText = "Бажано від макс. швидкості";
-            dgvTxtColumnMinMaxSpeed.MaxInputLength = 3;
-            dgvTxtColumnMinMaxSpeed.Name = "dgvTxtColumnMinMaxSpeed";
-            dgvTxtColumnMinMaxSpeed.ReadOnly = true;
+            dgvTxtColumnPrefferedYear.Width = 75;
             // 
             // dgvTxtColumnBudget
             // 
@@ -129,6 +143,7 @@
             btnDeleteCustomer.TabIndex = 2;
             btnDeleteCustomer.Text = "Видалити покупця";
             btnDeleteCustomer.UseVisualStyleBackColor = true;
+            btnDeleteCustomer.Click += btnDeleteCustomer_Click;
             // 
             // btnDeleteAll
             // 
@@ -138,6 +153,7 @@
             btnDeleteAll.TabIndex = 3;
             btnDeleteAll.Text = "Видалити всіх";
             btnDeleteAll.UseVisualStyleBackColor = true;
+            btnDeleteAll.Click += btnDeleteAll_Click;
             // 
             // btnEditCustomer
             // 
@@ -177,11 +193,84 @@
             btnRequestPage.UseVisualStyleBackColor = true;
             btnRequestPage.Click += btnRequestPage_Click;
             // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, manageToolStripMenuItem, helpToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(597, 24);
+            menuStrip1.TabIndex = 7;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { saveFileMenuItem, loadFileToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(48, 20);
+            fileToolStripMenuItem.Text = "Файл";
+            // 
+            // saveFileMenuItem
+            // 
+            saveFileMenuItem.Name = "saveFileMenuItem";
+            saveFileMenuItem.Size = new Size(180, 22);
+            saveFileMenuItem.Text = "Зберегти файл";
+            // 
+            // loadFileToolStripMenuItem
+            // 
+            loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
+            loadFileToolStripMenuItem.Size = new Size(180, 22);
+            loadFileToolStripMenuItem.Text = "Завантажити файл";
+            // 
+            // manageToolStripMenuItem
+            // 
+            manageToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addCarToolStripMenuItem, addCustomerToolStripMenuItem, оформитиЗаявкуToolStripMenuItem });
+            manageToolStripMenuItem.Name = "manageToolStripMenuItem";
+            manageToolStripMenuItem.Size = new Size(77, 20);
+            manageToolStripMenuItem.Text = "Керування";
+            // 
+            // addCarToolStripMenuItem
+            // 
+            addCarToolStripMenuItem.Name = "addCarToolStripMenuItem";
+            addCarToolStripMenuItem.Size = new Size(180, 22);
+            addCarToolStripMenuItem.Text = "Додати авто";
+            // 
+            // addCustomerToolStripMenuItem
+            // 
+            addCustomerToolStripMenuItem.Name = "addCustomerToolStripMenuItem";
+            addCustomerToolStripMenuItem.Size = new Size(180, 22);
+            addCustomerToolStripMenuItem.Text = "Додати покупця";
+            // 
+            // оформитиЗаявкуToolStripMenuItem
+            // 
+            оформитиЗаявкуToolStripMenuItem.Name = "оформитиЗаявкуToolStripMenuItem";
+            оформитиЗаявкуToolStripMenuItem.Size = new Size(180, 22);
+            оформитиЗаявкуToolStripMenuItem.Text = "Оформити заявку";
+            // 
+            // helpToolStripMenuItem
+            // 
+            helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem, helpButtonsToolStripMenuItem });
+            helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            helpToolStripMenuItem.Size = new Size(75, 20);
+            helpToolStripMenuItem.Text = "Допомога";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            aboutToolStripMenuItem.Size = new Size(180, 22);
+            aboutToolStripMenuItem.Text = "Про програму";
+            // 
+            // helpButtonsToolStripMenuItem
+            // 
+            helpButtonsToolStripMenuItem.Name = "helpButtonsToolStripMenuItem";
+            helpButtonsToolStripMenuItem.Size = new Size(180, 22);
+            helpButtonsToolStripMenuItem.Text = "Допоміжні клавіші";
+            // 
             // CustomersPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(597, 490);
+            Controls.Add(menuStrip1);
             Controls.Add(btnRequestPage);
             Controls.Add(btnCustomerPage);
             Controls.Add(btnMainPage);
@@ -194,7 +283,10 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Менеджмент покупців";
             ((System.ComponentModel.ISupportInitialize)dgvCustomers).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
         #endregion
         private System.Windows.Forms.DataGridView dgvCustomers;
@@ -205,12 +297,23 @@
         private System.Windows.Forms.Button btnMainPage;
         private Button btnCustomerPage;
         private Button btnRequestPage;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem saveFileMenuItem;
+        private ToolStripMenuItem loadFileToolStripMenuItem;
+        private ToolStripMenuItem manageToolStripMenuItem;
+        private ToolStripMenuItem addCarToolStripMenuItem;
+        private ToolStripMenuItem addCustomerToolStripMenuItem;
+        private ToolStripMenuItem оформитиЗаявкуToolStripMenuItem;
+        private ToolStripMenuItem helpToolStripMenuItem;
+        private ToolStripMenuItem aboutToolStripMenuItem;
+        private ToolStripMenuItem helpButtonsToolStripMenuItem;
+        private DataGridViewTextBoxColumn dgvTxtId;
         private DataGridViewTextBoxColumn dgvTxtColumnName;
         private DataGridViewTextBoxColumn dgvTxtColumnNumber;
         private DataGridViewTextBoxColumn dgvTxtColumnPrefferedBrand;
         private DataGridViewTextBoxColumn dgvTxtColumnPrefferedCondition;
         private DataGridViewTextBoxColumn dgvTxtColumnPrefferedYear;
-        private DataGridViewTextBoxColumn dgvTxtColumnMinMaxSpeed;
         private DataGridViewTextBoxColumn dgvTxtColumnBudget;
     }
 

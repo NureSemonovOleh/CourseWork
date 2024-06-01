@@ -15,29 +15,21 @@ namespace CourseWork
     public partial class AddCarForm : Form
     {
         private DataBase dataBase;
-        private Dictionary<string, List<string>> carModels;
+       
         public event EventHandler CarAdded;
         public AddCarForm(DataBase database)
         {
-            InitializeCarModels();
+
             InitializeComponent();
-            InitializeForm();
             dataBase = database;
+            InitializeForm();
+            
 
         }
-        private void InitializeCarModels()
-        {
-            carModels = new Dictionary<string, List<string>>
-            {
-                {"Toyota", new List<string> {"Supra","Corolla","Chaser"} },
-                {"Nissan", new List<string>{"Skyline","240sx","350z"} },
-                {"Ford", new List<string>{"Mustang", "GT", "Focus"} }
-            };
-
-        }
+        
         private void InitializeForm()
         {
-            cmbBrand.Items.AddRange(carModels.Keys.ToArray());
+            cmbBrand.Items.AddRange(dataBase.carModels.Keys.ToArray());
             cmbBrand.SelectedIndexChanged += CmbBrand_SelectedIndexChanged;
             cmbBrand.SelectedIndex = 0;
             UpdateModels();
@@ -53,9 +45,9 @@ namespace CourseWork
         {
             cmbModels.Items.Clear();
             string selectedBrand = cmbBrand.SelectedItem.ToString();
-            if (carModels.ContainsKey(selectedBrand))
+            if (dataBase.carModels.ContainsKey(selectedBrand))
             {
-                cmbModels.Items.AddRange(carModels[selectedBrand].ToArray());
+                cmbModels.Items.AddRange(dataBase.carModels[selectedBrand].ToArray());
             }
             cmbModels.SelectedIndex = 0;
         }

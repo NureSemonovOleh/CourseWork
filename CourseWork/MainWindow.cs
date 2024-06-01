@@ -3,10 +3,11 @@ namespace CourseWork
     public partial class MainWindow : Form
     {
 
-        private DataBase dataBase = new DataBase();
+        private DataBase dataBase;
         public MainWindow()
         {
             InitializeComponent();
+            dataBase = new DataBase();
 
         }
 
@@ -19,8 +20,14 @@ namespace CourseWork
             dgvCars.Rows.Clear();
             foreach (var car in dataBase.Cars)
             {
-                dgvCars.Rows.Add(car.Id, car.Brand, car.Model, car.Condition, car.Year,
-                    car.MaxSpeed, car.EngineVolume, car.Price);
+                dgvCars.Rows.Add(car.Id,
+                    car.Brand,
+                    car.Model,
+                    car.Condition,
+                    car.Year,
+                    car.MaxSpeed,
+                    car.EngineVolume,
+                    car.Price);
             }
         }
         private void btnAddNew_Click(object sender, EventArgs e)
@@ -145,6 +152,8 @@ namespace CourseWork
             var customerPage = new CustomersPage(dataBase, this);
             this.Hide();
             customerPage.Show();
+            
+            
         }
 
         private void btnRequestPage_Click(object sender, EventArgs e)
