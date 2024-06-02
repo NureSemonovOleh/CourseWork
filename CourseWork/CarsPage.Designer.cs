@@ -1,6 +1,6 @@
 ﻿namespace CourseWork
 {
-    partial class MainWindow
+    partial class CarsPage
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CarsPage));
             btnAddNew = new Button();
             dgvCars = new DataGridView();
             dgvTxtColumnId = new DataGridViewTextBoxColumn();
@@ -178,12 +178,14 @@
             saveFileMenuItem.Name = "saveFileMenuItem";
             saveFileMenuItem.Size = new Size(177, 22);
             saveFileMenuItem.Text = "Зберегти файл";
+            saveFileMenuItem.Click += saveFileMenuItem_Click;
             // 
             // loadFileToolStripMenuItem
             // 
             loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
             loadFileToolStripMenuItem.Size = new Size(177, 22);
             loadFileToolStripMenuItem.Text = "Завантажити файл";
+            loadFileToolStripMenuItem.Click += loadFileMenuItem_Click;
             // 
             // manageToolStripMenuItem
             // 
@@ -323,7 +325,7 @@
             btnSearchReset.Text = "Прибрати фільтр";
             btnSearchReset.UseVisualStyleBackColor = true;
             // 
-            // MainWindow
+            // CarsPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -344,7 +346,7 @@
             HelpButton = true;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
-            Name = "MainWindow";
+            Name = "CarsPage";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Менеджмент автосалону";
             Load += MainWindow_Load;

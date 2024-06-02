@@ -1,13 +1,16 @@
 namespace CourseWork
 {
-    public partial class MainWindow : Form
+    public partial class CarsPage : Form
     {
 
         private DataBase dataBase;
-        public MainWindow()
+        private const string FilePath = "database.json";
+
+        public CarsPage()
         {
             InitializeComponent();
             dataBase = new DataBase();
+            LoadFile();
 
         }
 
@@ -115,36 +118,26 @@ namespace CourseWork
                 MessageBox.Show("Всі автомобілі видалені");
             }
         }
-        private async void SaveFile()
+        private void SaveFile()
         {
-            string filePath = "dataBase.json";
-            try
-            {
-                await dataBase.Save(filePath);
-                MessageBox.Show("Data saved");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            dataBase.SaveFile(FilePath);
+            
         }
-        private async void LoadFile()
+        private void LoadFile()
         {
-            string filePath = "dataBase.json";
-            try
-            {
-                dataBase = await DataBase.Load(filePath);
-                MessageBox.Show("Data loaded");
-                UpdateCarList();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            dataBase.LoadFile(FilePath);
+            UpdateCarList() ;
+            
         }
         private void saveFileMenuItem_Click(object sender, EventArgs e)
         {
             SaveFile();
+            MessageBox.Show("data saved");
+        }
+        private void loadFileMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadFile();
+            MessageBox.Show("data loaded");
         }
 
         private void btnCustomerPage_Click(object sender, EventArgs e)

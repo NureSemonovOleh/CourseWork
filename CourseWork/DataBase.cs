@@ -7,6 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace CourseWork
 {
@@ -29,26 +30,32 @@ namespace CourseWork
             };
 
         }
-        public async Task Save(string FilePath)
+        public void SaveFile(string filePath)
         {
-            var options = new JsonSerializerOptions
+            var data = new
             {
-                WriteIndented = true,
+                Cars,
+                Customers,
+                Requests
+
             };
-            using(FileStream fs = new FileStream(FilePath,FileMode.Create, FileAccess.Write)) {
-                await JsonSerializer.SerializeAsync(fs, this, options);
-            }
-
-
-
+            var jsonData = JsonConvert.SerializeObject(data, Formatting.Indented);
+            File.WriteAllText(filePath, jsonData);
         }
-        public static async Task<DataBase> Load(string filePath)
+        public void LoadFile(string filePath)
         {
-            using (FileStream fs = new FileStream(filePath,FileMode.Open, FileAccess.Read))
+            if (File.Exists(filePath))
             {
-                return await JsonSerializer.DeserializeAsync<DataBase>(fs);
+                var jsonData = File.ReadAllText(filePath);
+                var data = JsonConvert.DeserializeObject<DataBase>(jsonData);
+
+                Cars = data.Cars;
+                Customers = data.Customers;
+                Requests = data.Requests;
             }
         }
+        
+
     }
 
 }

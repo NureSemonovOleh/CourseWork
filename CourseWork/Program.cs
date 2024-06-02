@@ -12,7 +12,7 @@ namespace CourseWork
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             DataBase dataBase = new DataBase();
-            Application.Run(new MainWindow());
+            Application.Run(new CarsPage());
         }
     }
 }

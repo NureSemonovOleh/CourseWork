@@ -13,9 +13,9 @@ namespace CourseWork
     public partial class CustomersPage : Form
     {
         private DataBase dataBase;
-        private MainWindow mainWindow;
+        private CarsPage mainWindow;
         private bool isNavigate = false;
-        public CustomersPage(DataBase database, MainWindow mainwindow)
+        public CustomersPage(DataBase database, CarsPage mainwindow)
         {
             InitializeComponent();
             dataBase = database;
@@ -50,16 +50,16 @@ namespace CourseWork
         }
         private void btnMainPage_Click(object sender, EventArgs e)
         {
-            isNavigate = true;
-            this.Close();
+            
             mainWindow.Show();
+            this.Hide();
         }
         private void btnRequestPage_Click(object sender, EventArgs e)
         {
-            isNavigate = true;
-            var requestPage = new RequestPage(dataBase, this);
-            this.Hide();
+            var requestPage = new RequestPage(dataBase, mainWindow);
             requestPage.Show();
+            this.Hide();
+            
         }
 
         private void btnAddNew_Click(object sender, EventArgs e)
