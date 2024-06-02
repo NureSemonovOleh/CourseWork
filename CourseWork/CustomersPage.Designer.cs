@@ -31,13 +31,6 @@ namespace CourseWork
         private void InitializeComponent()
         {
             dgvCustomers = new DataGridView();
-            dgvTxtId = new DataGridViewTextBoxColumn();
-            dgvTxtColumnName = new DataGridViewTextBoxColumn();
-            dgvTxtColumnNumber = new DataGridViewTextBoxColumn();
-            dgvTxtColumnPrefferedBrand = new DataGridViewTextBoxColumn();
-            dgvTxtColumnPrefferedCondition = new DataGridViewTextBoxColumn();
-            dgvTxtColumnPrefferedYear = new DataGridViewTextBoxColumn();
-            dgvTxtColumnBudget = new DataGridViewTextBoxColumn();
             btnAddNew = new Button();
             btnDeleteCustomer = new Button();
             btnDeleteAll = new Button();
@@ -56,6 +49,13 @@ namespace CourseWork
             helpToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             helpButtonsToolStripMenuItem = new ToolStripMenuItem();
+            dgvTxtId = new DataGridViewTextBoxColumn();
+            dgvTxtColumnName = new DataGridViewTextBoxColumn();
+            dgvTxtColumnNumber = new DataGridViewTextBoxColumn();
+            dgvTxtColumnPrefferedBrand = new DataGridViewTextBoxColumn();
+            dgvTxtColumnPrefferedCondition = new DataGridViewTextBoxColumn();
+            dgvTxtColumnPrefferedYear = new DataGridViewTextBoxColumn();
+            dgvTxtColumnBudget = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvCustomers).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -72,58 +72,6 @@ namespace CourseWork
             dgvCustomers.ScrollBars = ScrollBars.Vertical;
             dgvCustomers.Size = new Size(553, 206);
             dgvCustomers.TabIndex = 0;
-            // 
-            // dgvTxtId
-            // 
-            dgvTxtId.HeaderText = "ID";
-            dgvTxtId.MaxInputLength = 3;
-            dgvTxtId.Name = "dgvTxtId";
-            dgvTxtId.Width = 50;
-            // 
-            // dgvTxtColumnName
-            // 
-            dgvTxtColumnName.HeaderText = "Ім'я";
-            dgvTxtColumnName.Name = "dgvTxtColumnName";
-            dgvTxtColumnName.ReadOnly = true;
-            dgvTxtColumnName.Width = 75;
-            // 
-            // dgvTxtColumnNumber
-            // 
-            dgvTxtColumnNumber.HeaderText = "Номер телефону";
-            dgvTxtColumnNumber.MaxInputLength = 10;
-            dgvTxtColumnNumber.Name = "dgvTxtColumnNumber";
-            dgvTxtColumnNumber.ReadOnly = true;
-            dgvTxtColumnNumber.Width = 80;
-            // 
-            // dgvTxtColumnPrefferedBrand
-            // 
-            dgvTxtColumnPrefferedBrand.HeaderText = "Бажана марка";
-            dgvTxtColumnPrefferedBrand.Name = "dgvTxtColumnPrefferedBrand";
-            dgvTxtColumnPrefferedBrand.ReadOnly = true;
-            dgvTxtColumnPrefferedBrand.Width = 80;
-            // 
-            // dgvTxtColumnPrefferedCondition
-            // 
-            dgvTxtColumnPrefferedCondition.HeaderText = "Бажаний стан";
-            dgvTxtColumnPrefferedCondition.Name = "dgvTxtColumnPrefferedCondition";
-            dgvTxtColumnPrefferedCondition.ReadOnly = true;
-            dgvTxtColumnPrefferedCondition.Width = 75;
-            // 
-            // dgvTxtColumnPrefferedYear
-            // 
-            dgvTxtColumnPrefferedYear.HeaderText = "Бажано від ... року";
-            dgvTxtColumnPrefferedYear.MaxInputLength = 4;
-            dgvTxtColumnPrefferedYear.Name = "dgvTxtColumnPrefferedYear";
-            dgvTxtColumnPrefferedYear.ReadOnly = true;
-            dgvTxtColumnPrefferedYear.Width = 75;
-            // 
-            // dgvTxtColumnBudget
-            // 
-            dgvTxtColumnBudget.HeaderText = "Бюджет";
-            dgvTxtColumnBudget.MaxInputLength = 8;
-            dgvTxtColumnBudget.Name = "dgvTxtColumnBudget";
-            dgvTxtColumnBudget.ReadOnly = true;
-            dgvTxtColumnBudget.Width = 75;
             // 
             // btnAddNew
             // 
@@ -163,6 +111,7 @@ namespace CourseWork
             btnEditCustomer.TabIndex = 4;
             btnEditCustomer.Text = "Редагувати покупця";
             btnEditCustomer.UseVisualStyleBackColor = true;
+            btnEditCustomer.Click += btnEditCustomer_Click;
             // 
             // btnMainPage
             // 
@@ -212,13 +161,13 @@ namespace CourseWork
             // saveFileMenuItem
             // 
             saveFileMenuItem.Name = "saveFileMenuItem";
-            saveFileMenuItem.Size = new Size(180, 22);
+            saveFileMenuItem.Size = new Size(177, 22);
             saveFileMenuItem.Text = "Зберегти файл";
             // 
             // loadFileToolStripMenuItem
             // 
             loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
-            loadFileToolStripMenuItem.Size = new Size(180, 22);
+            loadFileToolStripMenuItem.Size = new Size(177, 22);
             loadFileToolStripMenuItem.Text = "Завантажити файл";
             // 
             // manageToolStripMenuItem
@@ -231,19 +180,19 @@ namespace CourseWork
             // addCarToolStripMenuItem
             // 
             addCarToolStripMenuItem.Name = "addCarToolStripMenuItem";
-            addCarToolStripMenuItem.Size = new Size(180, 22);
+            addCarToolStripMenuItem.Size = new Size(172, 22);
             addCarToolStripMenuItem.Text = "Додати авто";
             // 
             // addCustomerToolStripMenuItem
             // 
             addCustomerToolStripMenuItem.Name = "addCustomerToolStripMenuItem";
-            addCustomerToolStripMenuItem.Size = new Size(180, 22);
+            addCustomerToolStripMenuItem.Size = new Size(172, 22);
             addCustomerToolStripMenuItem.Text = "Додати покупця";
             // 
             // оформитиЗаявкуToolStripMenuItem
             // 
             оформитиЗаявкуToolStripMenuItem.Name = "оформитиЗаявкуToolStripMenuItem";
-            оформитиЗаявкуToolStripMenuItem.Size = new Size(180, 22);
+            оформитиЗаявкуToolStripMenuItem.Size = new Size(172, 22);
             оформитиЗаявкуToolStripMenuItem.Text = "Оформити заявку";
             // 
             // helpToolStripMenuItem
@@ -256,14 +205,66 @@ namespace CourseWork
             // aboutToolStripMenuItem
             // 
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new Size(180, 22);
+            aboutToolStripMenuItem.Size = new Size(179, 22);
             aboutToolStripMenuItem.Text = "Про програму";
             // 
             // helpButtonsToolStripMenuItem
             // 
             helpButtonsToolStripMenuItem.Name = "helpButtonsToolStripMenuItem";
-            helpButtonsToolStripMenuItem.Size = new Size(180, 22);
+            helpButtonsToolStripMenuItem.Size = new Size(179, 22);
             helpButtonsToolStripMenuItem.Text = "Допоміжні клавіші";
+            // 
+            // dgvTxtId
+            // 
+            dgvTxtId.HeaderText = "ID";
+            dgvTxtId.MaxInputLength = 3;
+            dgvTxtId.Name = "dgvTxtId";
+            dgvTxtId.Width = 50;
+            // 
+            // dgvTxtColumnName
+            // 
+            dgvTxtColumnName.HeaderText = "Ім'я";
+            dgvTxtColumnName.Name = "dgvTxtColumnName";
+            dgvTxtColumnName.ReadOnly = true;
+            dgvTxtColumnName.Width = 85;
+            // 
+            // dgvTxtColumnNumber
+            // 
+            dgvTxtColumnNumber.HeaderText = "Номер телефону";
+            dgvTxtColumnNumber.MaxInputLength = 10;
+            dgvTxtColumnNumber.Name = "dgvTxtColumnNumber";
+            dgvTxtColumnNumber.ReadOnly = true;
+            dgvTxtColumnNumber.Width = 80;
+            // 
+            // dgvTxtColumnPrefferedBrand
+            // 
+            dgvTxtColumnPrefferedBrand.HeaderText = "Бажана марка";
+            dgvTxtColumnPrefferedBrand.Name = "dgvTxtColumnPrefferedBrand";
+            dgvTxtColumnPrefferedBrand.ReadOnly = true;
+            dgvTxtColumnPrefferedBrand.Width = 80;
+            // 
+            // dgvTxtColumnPrefferedCondition
+            // 
+            dgvTxtColumnPrefferedCondition.HeaderText = "Бажаний стан";
+            dgvTxtColumnPrefferedCondition.Name = "dgvTxtColumnPrefferedCondition";
+            dgvTxtColumnPrefferedCondition.ReadOnly = true;
+            dgvTxtColumnPrefferedCondition.Width = 65;
+            // 
+            // dgvTxtColumnPrefferedYear
+            // 
+            dgvTxtColumnPrefferedYear.HeaderText = "Бажано від ... року";
+            dgvTxtColumnPrefferedYear.MaxInputLength = 4;
+            dgvTxtColumnPrefferedYear.Name = "dgvTxtColumnPrefferedYear";
+            dgvTxtColumnPrefferedYear.ReadOnly = true;
+            dgvTxtColumnPrefferedYear.Width = 75;
+            // 
+            // dgvTxtColumnBudget
+            // 
+            dgvTxtColumnBudget.HeaderText = "Бюджет";
+            dgvTxtColumnBudget.MaxInputLength = 8;
+            dgvTxtColumnBudget.Name = "dgvTxtColumnBudget";
+            dgvTxtColumnBudget.ReadOnly = true;
+            dgvTxtColumnBudget.Width = 75;
             // 
             // CustomersPage
             // 

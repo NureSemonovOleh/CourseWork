@@ -15,11 +15,11 @@ namespace CourseWork
     {
         private DataBase dataBase;
         private Car carToEdit;
-        private Dictionary<string, List<string>> carModels;
+        
         public event EventHandler CarEdited;
         public EditCarForm(DataBase database, Car car)
         {
-            InitializeCarModels();
+           
             InitializeComponent();
             dataBase = database;
             carToEdit = car;
@@ -27,23 +27,14 @@ namespace CourseWork
 
 
         }
-        private void InitializeCarModels()
-        {
-            carModels = new Dictionary<string, List<string>>
-            {
-                {"Toyota", new List<string> {"Supra","Corolla","Chaser"} },
-                {"Nissan", new List<string>{"Skyline","240sx","350z"} },
-                {"Ford", new List<string>{"Mustang", "GT", "Focus"} }
-            };
-
-        }
+        
         private void LoadData()
         {
-            cmbBrand.Items.AddRange(carModels.Keys.ToArray());
+            cmbBrand.Items.AddRange(dataBase.carModels.Keys.ToArray());
             cmbBrand.Text = carToEdit.Brand;
-            if (carModels.ContainsKey(carToEdit.Brand))
+            if (dataBase.carModels.ContainsKey(carToEdit.Brand))
             {
-                cmbModels.Items.AddRange(carModels[carToEdit.Brand].ToArray());
+                cmbModels.Items.AddRange(dataBase.carModels[carToEdit.Brand].ToArray());
                 cmbModels.Text = carToEdit.Model;
             }
             cmbModels.Text = carToEdit.Model;
@@ -59,7 +50,7 @@ namespace CourseWork
             {
                 var selectedBrand = cmbBrand.SelectedItem.ToString();
                 cmbModels.Items.Clear();
-                cmbModels.Items.AddRange(carModels[selectedBrand].ToArray());
+                cmbModels.Items.AddRange(dataBase.carModels[selectedBrand].ToArray());
             }
         }
 

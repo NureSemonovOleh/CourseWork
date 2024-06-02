@@ -124,5 +124,31 @@ namespace CourseWork
                 MessageBox.Show("Всі клієнти видалені");
             }
         }
+
+        private void btnEditCustomer_Click(object sender, EventArgs e)
+        {
+            if (dgvCustomers.SelectedRows.Count > 0)
+            {
+                
+               int selectedCustomerId = (int)dgvCustomers.SelectedRows[0].Cells["dgvTxtId"].Value;
+               var customerEdit = dataBase.Customers.FirstOrDefault(customer => customer.Id == selectedCustomerId);
+               if (customerEdit != null)
+               {
+                    var editCustomerForm = new EditCustomerForm(customerEdit, dataBase);
+                    editCustomerForm.ShowDialog();
+                    UpdateCustomers();
+
+                    
+               }
+               else
+               {
+                   MessageBox.Show("Клієнта не знайдено");
+               }
+            }
+            else
+            {
+                MessageBox.Show("Будь ласка,виберіть клієнта для редагування");
+            }
+        }
     }
 }

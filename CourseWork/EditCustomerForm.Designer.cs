@@ -1,6 +1,6 @@
 ﻿namespace CourseWork
 {
-    partial class AddCustomerForm
+    partial class EditCustomerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,14 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddCustomerForm));
             txtName = new TextBox();
             txtNumber = new TextBox();
             cmbPrefferedBrand = new ComboBox();
             txtPrefferedYear = new TextBox();
             cmbPrefferedCondition = new ComboBox();
             txtBudget = new TextBox();
-            btnAddCustomer = new Button();
+            btnEditCustomer = new Button();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -64,6 +63,7 @@
             // 
             cmbPrefferedBrand.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPrefferedBrand.FormattingEnabled = true;
+            cmbPrefferedBrand.Items.AddRange(new object[] { "Ford", "Nissan", "Toyota" });
             cmbPrefferedBrand.Location = new Point(12, 132);
             cmbPrefferedBrand.Name = "cmbPrefferedBrand";
             cmbPrefferedBrand.Size = new Size(120, 23);
@@ -83,8 +83,7 @@
             // 
             cmbPrefferedCondition.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPrefferedCondition.FormattingEnabled = true;
-            cmbPrefferedCondition.Sorted = true;
-          
+            cmbPrefferedCondition.Items.AddRange(new object[] { "New", "Used", "Old" });
             cmbPrefferedCondition.Location = new Point(12, 220);
             cmbPrefferedCondition.Name = "cmbPrefferedCondition";
             cmbPrefferedCondition.Size = new Size(120, 23);
@@ -99,15 +98,15 @@
             txtBudget.TabIndex = 6;
             txtBudget.KeyPress += txtBudget_KeyPress;
             // 
-            // btnAddCustomer
+            // btnEditCustomer
             // 
-            btnAddCustomer.Location = new Point(43, 323);
-            btnAddCustomer.Name = "btnAddCustomer";
-            btnAddCustomer.Size = new Size(260, 61);
-            btnAddCustomer.TabIndex = 7;
-            btnAddCustomer.Text = "Додати покупця";
-            btnAddCustomer.UseVisualStyleBackColor = true;
-            btnAddCustomer.Click += btnAddCustomer_Click;
+            btnEditCustomer.Location = new Point(43, 323);
+            btnEditCustomer.Name = "btnEditCustomer";
+            btnEditCustomer.Size = new Size(260, 61);
+            btnEditCustomer.TabIndex = 7;
+            btnEditCustomer.Text = "Редагувати покупця";
+            btnEditCustomer.UseVisualStyleBackColor = true;
+            btnEditCustomer.Click += btnEditCustomer_Click;
             // 
             // label1
             // 
@@ -163,7 +162,7 @@
             label6.TabIndex = 13;
             label6.Text = "Бюджет клієнта";
             // 
-            // AddCustomerForm
+            // EditCustomerForm
             // 
             ClientSize = new Size(354, 424);
             Controls.Add(label6);
@@ -172,16 +171,15 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(btnAddCustomer);
+            Controls.Add(btnEditCustomer);
             Controls.Add(txtBudget);
             Controls.Add(cmbPrefferedCondition);
             Controls.Add(txtPrefferedYear);
             Controls.Add(cmbPrefferedBrand);
             Controls.Add(txtNumber);
             Controls.Add(txtName);
-            Icon = (Icon)resources.GetObject("$this.Icon");
-            Name = "AddCustomerForm";
-            Text = "Додати покупця";
+            Name = "EditCustomerForm";
+            Text = "Редагувати покупця";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -194,7 +192,7 @@
         private TextBox txtPrefferedYear;
         private ComboBox cmbPrefferedCondition;
         private TextBox txtBudget;
-        private Button btnAddCustomer;
+        private Button btnEditCustomer;
         private Label label1;
         private Label label2;
         private Label label3;
@@ -203,3 +201,4 @@
         private Label label6;
     }
 }
+

@@ -19,6 +19,11 @@ namespace CourseWork
         {
             InitializeComponent();
             dataBase = database;
+            cmbPrefferedBrand.Items.Add("Відсутня");
+            cmbPrefferedBrand.Items.AddRange(dataBase.carModels.Keys.ToArray());
+            cmbPrefferedCondition.Items.AddRange(new object[] { "New", "Used", "Old" });
+            cmbPrefferedCondition.SelectedIndex = 0;
+            cmbPrefferedBrand.SelectedIndex = 0;
         }
 
         private void btnAddCustomer_Click(object sender, EventArgs e)
@@ -35,11 +40,7 @@ namespace CourseWork
                     MessageBox.Show("Будь ласка,введіть номер");
                     return;
                 }
-                if (string.IsNullOrWhiteSpace(cmbPrefferedBrand.Text))
-                {
-                    MessageBox.Show("Будь ласка,виберіть бажану марку");
-                    return;
-                }
+                
                 if (!int.TryParse(txtPrefferedYear.Text, out int year) || string.IsNullOrWhiteSpace(txtPrefferedYear.Text))
                 {
                     MessageBox.Show("Будь ласка, вкажіть вірний рік");
@@ -60,7 +61,7 @@ namespace CourseWork
                     Id = dataBase.Customers.Count > 0 ? dataBase.Customers.Max(x => x.Id) + 1 : 1,
                     Name = txtName.Text,
                     Number = txtNumber.Text,
-                    PrefferedBrand = cmbPrefferedBrand.Text,
+                    PrefferedBrand = cmbPrefferedBrand.SelectedItem?.ToString(),
                     PrefferedCondition = cmbPrefferedCondition.Text,
                     PrefferedYear = int.Parse(txtPrefferedYear.Text),
 
@@ -77,7 +78,28 @@ namespace CourseWork
             }
 
         }
+        private void txtNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void txtPrefferedYear_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void txtBudget_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
 
-        
+
     }
 }
