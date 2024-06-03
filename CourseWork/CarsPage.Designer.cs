@@ -83,9 +83,10 @@
             dgvCars.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCars.Columns.AddRange(new DataGridViewColumn[] { dgvTxtColumnId, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5, dataGridViewTextBoxColumn6, dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8 });
             dgvCars.Location = new Point(12, 130);
+            dgvCars.MultiSelect = false;
             dgvCars.Name = "dgvCars";
             dgvCars.ScrollBars = ScrollBars.Vertical;
-            dgvCars.Size = new Size(553, 189);
+            dgvCars.Size = new Size(585, 189);
             dgvCars.TabIndex = 2;
             // 
             // dgvTxtColumnId
@@ -132,12 +133,12 @@
             // 
             // dataGridViewTextBoxColumn6
             // 
-            dataGridViewTextBoxColumn6.HeaderText = "Макс.швидкість";
+            dataGridViewTextBoxColumn6.HeaderText = "Макс. швидкість";
             dataGridViewTextBoxColumn6.MaxInputLength = 3;
             dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             dataGridViewTextBoxColumn6.ReadOnly = true;
             dataGridViewTextBoxColumn6.Resizable = DataGridViewTriState.False;
-            dataGridViewTextBoxColumn6.Width = 50;
+            dataGridViewTextBoxColumn6.Width = 75;
             // 
             // dataGridViewTextBoxColumn7
             // 
@@ -252,7 +253,7 @@
             // 
             // btnRequestPage
             // 
-            btnRequestPage.Location = new Point(434, 449);
+            btnRequestPage.Location = new Point(454, 449);
             btnRequestPage.Name = "btnRequestPage";
             btnRequestPage.Size = new Size(131, 29);
             btnRequestPage.TabIndex = 6;
@@ -272,7 +273,7 @@
             // 
             // btnDeleteAll
             // 
-            btnDeleteAll.Location = new Point(434, 325);
+            btnDeleteAll.Location = new Point(454, 325);
             btnDeleteAll.Name = "btnDeleteAll";
             btnDeleteAll.Size = new Size(131, 55);
             btnDeleteAll.TabIndex = 8;
@@ -294,7 +295,7 @@
             // 
             cmbSearch.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSearch.FormattingEnabled = true;
-            cmbSearch.Items.AddRange(new object[] { "ID", "Brand", "Price <= ", "Condition" });
+            cmbSearch.Items.AddRange(new object[] { "ID", "Brand", "Price <=" });
             cmbSearch.Location = new Point(12, 27);
             cmbSearch.Name = "cmbSearch";
             cmbSearch.Size = new Size(155, 23);
@@ -315,6 +316,7 @@
             btnSearch.TabIndex = 12;
             btnSearch.Text = "Пошук";
             btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
             // btnSearchReset
             // 
@@ -324,6 +326,7 @@
             btnSearchReset.TabIndex = 13;
             btnSearchReset.Text = "Прибрати фільтр";
             btnSearchReset.UseVisualStyleBackColor = true;
+            btnSearchReset.Click += btnSearchReset_Click;
             // 
             // CarsPage
             // 
@@ -343,9 +346,11 @@
             Controls.Add(dgvCars);
             Controls.Add(btnAddNew);
             Controls.Add(menuStrip1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             HelpButton = true;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
+            MaximizeBox = false;
             Name = "CarsPage";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Менеджмент автосалону";

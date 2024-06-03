@@ -14,7 +14,8 @@ namespace CourseWork
     {
         private DataBase dataBase;
         private CarsPage mainWindow;
-        private bool isNavigate = false;
+        private const string FilePath = "database.json";
+
         public CustomersPage(DataBase database, CarsPage mainwindow)
         {
             InitializeComponent();
@@ -27,10 +28,10 @@ namespace CourseWork
 
         private void CustomersPage_FormClosing(object? sender, FormClosingEventArgs e)
         {
-            if (!isNavigate)
-            {
-                Application.Exit();
-            }
+
+
+            Application.Exit();
+
         }
 
         private void UpdateCustomers()
@@ -50,7 +51,7 @@ namespace CourseWork
         }
         private void btnMainPage_Click(object sender, EventArgs e)
         {
-            
+
             mainWindow.Show();
             this.Hide();
         }
@@ -59,7 +60,7 @@ namespace CourseWork
             var requestPage = new RequestPage(dataBase, mainWindow);
             requestPage.Show();
             this.Hide();
-            
+
         }
 
         private void btnAddNew_Click(object sender, EventArgs e)
@@ -129,26 +130,98 @@ namespace CourseWork
         {
             if (dgvCustomers.SelectedRows.Count > 0)
             {
-                
-               int selectedCustomerId = (int)dgvCustomers.SelectedRows[0].Cells["dgvTxtId"].Value;
-               var customerEdit = dataBase.Customers.FirstOrDefault(customer => customer.Id == selectedCustomerId);
-               if (customerEdit != null)
-               {
+
+                int selectedCustomerId = (int)dgvCustomers.SelectedRows[0].Cells["dgvTxtId"].Value;
+                var customerEdit = dataBase.Customers.FirstOrDefault(customer => customer.Id == selectedCustomerId);
+                if (customerEdit != null)
+                {
                     var editCustomerForm = new EditCustomerForm(customerEdit, dataBase);
                     editCustomerForm.ShowDialog();
                     UpdateCustomers();
 
-                    
-               }
-               else
-               {
-                   MessageBox.Show("Клієнта не знайдено");
-               }
+
+                }
+                else
+                {
+                    MessageBox.Show("Клієнта не знайдено");
+                }
             }
             else
             {
                 MessageBox.Show("Будь ласка,виберіть клієнта для редагування");
             }
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string filter = cmbSearch.SelectedItem?.ToString();
+            string searchValue = txtSearch.Text;
+
+            var filteredCustomers = dataBase.Customers.AsQueryable();
+
+            if (!string.IsNullOrEmpty(filter) && !string.IsNullOrEmpty(searchValue))
+            {
+                switch (filter)
+                {
+                    case "Id":
+                        if (int.TryParse(searchValue, out int id))
+                        {
+                            filteredCustomers = filteredCustomers.Where(c => c.Id == id);
+                        }
+                        break;
+                    case "Ім'я":
+                        filteredCustomers = filteredCustomers.Where(c => c.Name.Contains(searchValue, StringComparison.OrdinalIgnoreCase));
+                        break;
+                    case "Бюджет <=":
+                        if (int.TryParse(searchValue, out int budget))
+                        {
+                            filteredCustomers = filteredCustomers.Where(c => c.Budget <= budget);
+                        }
+                        break;
+                }
+                dgvCustomers.Rows.Clear();
+                foreach (var customer in filteredCustomers.ToList())
+                {
+                    dgvCustomers.Rows.Add(
+                    customer.Id,
+                    customer.Name,
+                    customer.Number,
+                    customer.PrefferedBrand,
+                    customer.PrefferedYear,
+                    customer.PrefferedCondition,
+                    customer.Budget);
+                }
+            }
+            
+        }
+
+        private void btnSearchReset_Click(object sender, EventArgs e)
+        {
+            txtSearch.Clear();
+            cmbSearch.SelectedIndex = -1;
+            UpdateCustomers();
+        }
+        private void SaveFile()
+        {
+            dataBase.SaveFile(FilePath);
+
+        }
+        private void LoadFile()
+        {
+            dataBase.LoadFile(FilePath);
+            UpdateCustomers();
+
+        }
+        private void saveFileMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFile();
+            MessageBox.Show("Файл збережено");
+        }
+        private void loadFileMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadFile();
+            MessageBox.Show("Файл загружено");
+        }
+
     }
 }

@@ -15,6 +15,7 @@ namespace CourseWork
     {
         private Customer customerEdit;
         private DataBase dataBase;
+
         public EditCustomerForm(Customer customerEdit, DataBase dataBase)
         {
             InitializeComponent();
@@ -76,9 +77,9 @@ namespace CourseWork
                     MessageBox.Show("Будь ласка, вкажіть вірний бюджет.");
                     return;
                 }
-                if (!int.TryParse(txtNumber.Text, out int number))
+                if (string.IsNullOrWhiteSpace(txtNumber.Text))
                 {
-                    MessageBox.Show("Будь ласка, вкажіть вірний бюджет.");
+                    MessageBox.Show("Будь ласка, вкажіть вірний номер.");
                     return;
                 }
                 customerEdit.Name = txtName.Text;
@@ -87,6 +88,8 @@ namespace CourseWork
                 customerEdit.PrefferedYear = year;
                 customerEdit.PrefferedCondition = cmbPrefferedCondition.SelectedItem.ToString();
                 customerEdit.Budget = budget;
+
+                
 
                 MessageBox.Show("Зміни збережено.");
                 this.Close();

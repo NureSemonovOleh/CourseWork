@@ -38,7 +38,7 @@
             cmbCustomer.FormattingEnabled = true;
             cmbCustomer.Location = new Point(12, 43);
             cmbCustomer.Name = "cmbCustomer";
-            cmbCustomer.Size = new Size(121, 23);
+            cmbCustomer.Size = new Size(257, 23);
             cmbCustomer.TabIndex = 0;
             cmbCustomer.SelectedIndexChanged += cmbCustomer_SelectedIndexChanged;
             // 
@@ -47,32 +47,30 @@
             cmbCars.FormattingEnabled = true;
             cmbCars.Location = new Point(12, 95);
             cmbCars.Name = "cmbCars";
-            cmbCars.Size = new Size(121, 23);
+            cmbCars.Size = new Size(257, 23);
             cmbCars.TabIndex = 1;
             // 
             // btnAddRequest
             // 
-            btnAddRequest.Location = new Point(194, 253);
+            btnAddRequest.Location = new Point(12, 254);
             btnAddRequest.Name = "btnAddRequest";
-            btnAddRequest.Size = new Size(75, 23);
+            btnAddRequest.Size = new Size(257, 66);
             btnAddRequest.TabIndex = 2;
             btnAddRequest.Text = "Додати заявку";
             btnAddRequest.UseVisualStyleBackColor = true;
             btnAddRequest.Click += btnAddRequest_Click;
-
             // 
             // AddRequestForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(302, 450);
             Controls.Add(btnAddRequest);
             Controls.Add(cmbCars);
             Controls.Add(cmbCustomer);
             Name = "AddRequestForm";
-            Text = "Form1";
+            Text = "Додати заявку";
             ResumeLayout(false);
-            
         }
 
         #endregion

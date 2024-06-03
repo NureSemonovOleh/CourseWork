@@ -32,11 +32,6 @@ namespace CourseWork
         {
             cmbBrand.Items.AddRange(dataBase.carModels.Keys.ToArray());
             cmbBrand.Text = carToEdit.Brand;
-            if (dataBase.carModels.ContainsKey(carToEdit.Brand))
-            {
-                cmbModels.Items.AddRange(dataBase.carModels[carToEdit.Brand].ToArray());
-                cmbModels.Text = carToEdit.Model;
-            }
             cmbModels.Text = carToEdit.Model;
             cmbCondition.Text = carToEdit.Condition;
             txtYear.Text = carToEdit.Year.ToString();

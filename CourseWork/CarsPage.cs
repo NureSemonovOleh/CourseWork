@@ -65,7 +65,7 @@ namespace CourseWork
                 MessageBox.Show("Будь ласка, виберіть авто для редагування");
             }
         }
-        private void EditCarForm_CarEdited (object sender, EventArgs e)
+        private void EditCarForm_CarEdited(object sender, EventArgs e)
         {
             UpdateCarList();
         }
@@ -121,23 +121,23 @@ namespace CourseWork
         private void SaveFile()
         {
             dataBase.SaveFile(FilePath);
-            
+
         }
         private void LoadFile()
         {
             dataBase.LoadFile(FilePath);
-            UpdateCarList() ;
-            
+            UpdateCarList();
+
         }
         private void saveFileMenuItem_Click(object sender, EventArgs e)
         {
             SaveFile();
-            MessageBox.Show("data saved");
+            MessageBox.Show("Файл збережено");
         }
         private void loadFileMenuItem_Click(object sender, EventArgs e)
         {
             LoadFile();
-            MessageBox.Show("data loaded");
+            MessageBox.Show("Файл загружено");
         }
 
         private void btnCustomerPage_Click(object sender, EventArgs e)
@@ -145,8 +145,8 @@ namespace CourseWork
             var customerPage = new CustomersPage(dataBase, this);
             this.Hide();
             customerPage.Show();
-            
-            
+
+
         }
 
         private void btnRequestPage_Click(object sender, EventArgs e)
@@ -156,56 +156,53 @@ namespace CourseWork
             requestPage.Show();
         }
 
-        
-
-        
-
-
-        /*private void ApplySearchFilter()
-        {
-            var searchTerm = txtSearch.Text.ToLower();
-            var searchType = cmbSearch.SelectedItem?.ToString();
-
-            if (string.IsNullOrEmpty(searchTerm) || string.IsNullOrEmpty(searchType))
-            {
-                dgvCars.DataSource = dataBase.Cars;
-                return;
-            }
-
-            switch (searchType)
-            {
-                case "ID":
-                    if (int.TryParse(searchTerm, out int id))
-                    {
-                        dgvCars.DataSource = dataBase.Cars.Where(car => car.Id == id).ToList();
-                    }
-                    break;
-                case "Brand":
-                    dgvCars.DataSource = dataBase.Cars.Where(car => car.Brand.ToLower().Contains(searchTerm)).ToList();
-                    break;
-                case "Price <= ":
-                    if (int.TryParse(searchTerm, out int price))
-                    {
-                        dgvCars.DataSource = dataBase.Cars.Where(car => car.Price <= price).ToList();
-                    }
-                    break;
-                case "Condition":
-                    dgvCars.DataSource = dataBase.Cars.Where(car => car.Condition.ToLower().Contains(searchTerm)).ToList();
-                    break;
-                default:
-                    dgvCars.DataSource = dataBase.Cars;
-                    break;
-            }
-        }
-
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            
+            string filter = cmbSearch.SelectedItem?.ToString();
+            string searchValue = txtSearch.Text;
+            var filteredCars = dataBase.Cars.AsQueryable();
+            if (!string.IsNullOrEmpty(filter) && !string.IsNullOrEmpty(searchValue))
+            {
+                switch (filter)
+                {
+                    case "ID":
+                        if (int.TryParse(searchValue, out int id))
+                        {
+                            filteredCars = filteredCars.Where(c => c.Id == id);
+                        }
+                        break;
+                    case "Price <=":
+                        if (int.TryParse(searchValue, out int price))
+                        {
+                            filteredCars = filteredCars.Where(c => c.Price <= price);
+                        }
+                        break;
+                    case "Brand":
+                        filteredCars = filteredCars.Where(c => c.Brand.Contains(searchValue, StringComparison.OrdinalIgnoreCase));
+                        break;
+                }
+            }
+            dgvCars.Rows.Clear();
+            foreach (var car in filteredCars.ToList())
+            {
+                dgvCars.Rows.Add(
+                    car.Id,
+                    car.Brand,
+                    car.Model,
+                    car.Condition,
+                    car.Year,
+                    car.MaxSpeed,
+                    car.EngineVolume,
+                    car.Price);
+            }
+
         }
 
         private void btnSearchReset_Click(object sender, EventArgs e)
         {
-
-        }*/
+            txtSearch.Clear();
+            cmbSearch.SelectedIndex = -1;
+            UpdateCarList();
+        }
     }
 }
