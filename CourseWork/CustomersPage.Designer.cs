@@ -53,11 +53,8 @@ namespace CourseWork
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             saveFileMenuItem = new ToolStripMenuItem();
+            SaveFileAsToolStripMenuItem = new ToolStripMenuItem();
             loadFileToolStripMenuItem = new ToolStripMenuItem();
-            manageToolStripMenuItem = new ToolStripMenuItem();
-            addCarToolStripMenuItem = new ToolStripMenuItem();
-            addCustomerToolStripMenuItem = new ToolStripMenuItem();
-            оформитиЗаявкуToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             helpButtonsToolStripMenuItem = new ToolStripMenuItem();
@@ -77,6 +74,7 @@ namespace CourseWork
             dgvCustomers.ScrollBars = ScrollBars.Vertical;
             dgvCustomers.Size = new Size(553, 206);
             dgvCustomers.TabIndex = 0;
+            dgvCustomers.TabStop = false;
             // 
             // dgvTxtId
             // 
@@ -135,7 +133,7 @@ namespace CourseWork
             btnAddNew.Location = new Point(12, 326);
             btnAddNew.Name = "btnAddNew";
             btnAddNew.Size = new Size(131, 55);
-            btnAddNew.TabIndex = 1;
+            btnAddNew.TabIndex = 5;
             btnAddNew.Text = "Додати покупця";
             btnAddNew.UseVisualStyleBackColor = true;
             btnAddNew.Click += btnAddNew_Click;
@@ -145,7 +143,7 @@ namespace CourseWork
             btnDeleteCustomer.Location = new Point(232, 327);
             btnDeleteCustomer.Name = "btnDeleteCustomer";
             btnDeleteCustomer.Size = new Size(131, 55);
-            btnDeleteCustomer.TabIndex = 2;
+            btnDeleteCustomer.TabIndex = 6;
             btnDeleteCustomer.Text = "Видалити покупця";
             btnDeleteCustomer.UseVisualStyleBackColor = true;
             btnDeleteCustomer.Click += btnDeleteCustomer_Click;
@@ -155,7 +153,7 @@ namespace CourseWork
             btnDeleteAll.Location = new Point(434, 327);
             btnDeleteAll.Name = "btnDeleteAll";
             btnDeleteAll.Size = new Size(131, 55);
-            btnDeleteAll.TabIndex = 3;
+            btnDeleteAll.TabIndex = 7;
             btnDeleteAll.Text = "Видалити всіх";
             btnDeleteAll.UseVisualStyleBackColor = true;
             btnDeleteAll.Click += btnDeleteAll_Click;
@@ -165,7 +163,7 @@ namespace CourseWork
             btnEditCustomer.Location = new Point(232, 388);
             btnEditCustomer.Name = "btnEditCustomer";
             btnEditCustomer.Size = new Size(131, 55);
-            btnEditCustomer.TabIndex = 4;
+            btnEditCustomer.TabIndex = 8;
             btnEditCustomer.Text = "Редагувати покупця";
             btnEditCustomer.UseVisualStyleBackColor = true;
             btnEditCustomer.Click += btnEditCustomer_Click;
@@ -175,7 +173,7 @@ namespace CourseWork
             btnMainPage.Location = new Point(12, 449);
             btnMainPage.Name = "btnMainPage";
             btnMainPage.Size = new Size(131, 29);
-            btnMainPage.TabIndex = 5;
+            btnMainPage.TabIndex = 9;
             btnMainPage.Text = "Сторінка \"Авто\"";
             btnMainPage.UseVisualStyleBackColor = true;
             btnMainPage.Click += btnMainPage_Click;
@@ -185,7 +183,7 @@ namespace CourseWork
             btnCustomerPage.Location = new Point(232, 449);
             btnCustomerPage.Name = "btnCustomerPage";
             btnCustomerPage.Size = new Size(131, 29);
-            btnCustomerPage.TabIndex = 4;
+            btnCustomerPage.TabIndex = 10;
             btnCustomerPage.Text = "Сторінка \"Покупці\"";
             btnCustomerPage.UseVisualStyleBackColor = true;
             // 
@@ -194,7 +192,7 @@ namespace CourseWork
             btnRequestPage.Location = new Point(434, 449);
             btnRequestPage.Name = "btnRequestPage";
             btnRequestPage.Size = new Size(131, 29);
-            btnRequestPage.TabIndex = 6;
+            btnRequestPage.TabIndex = 11;
             btnRequestPage.Text = "Сторінка \"Заявки\"";
             btnRequestPage.UseVisualStyleBackColor = true;
             btnRequestPage.Click += btnRequestPage_Click;
@@ -207,14 +205,14 @@ namespace CourseWork
             cmbSearch.Location = new Point(12, 27);
             cmbSearch.Name = "cmbSearch";
             cmbSearch.Size = new Size(155, 23);
-            cmbSearch.TabIndex = 11;
+            cmbSearch.TabIndex = 1;
             // 
             // btnSearchReset
             // 
             btnSearchReset.Location = new Point(201, 27);
             btnSearchReset.Name = "btnSearchReset";
             btnSearchReset.Size = new Size(131, 52);
-            btnSearchReset.TabIndex = 14;
+            btnSearchReset.TabIndex = 4;
             btnSearchReset.Text = "Прибрати фільтр";
             btnSearchReset.UseVisualStyleBackColor = true;
             btnSearchReset.Click += btnSearchReset_Click;
@@ -224,30 +222,30 @@ namespace CourseWork
             txtSearch.Location = new Point(12, 56);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(118, 23);
-            txtSearch.TabIndex = 15;
+            txtSearch.TabIndex = 2;
             // 
             // btnSearch
             // 
             btnSearch.Location = new Point(12, 85);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(75, 23);
-            btnSearch.TabIndex = 16;
+            btnSearch.TabIndex = 3;
             btnSearch.Text = "Пошук";
             btnSearch.UseVisualStyleBackColor = true;
             btnSearch.Click += btnSearch_Click;
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, manageToolStripMenuItem, helpToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(597, 24);
-            menuStrip1.TabIndex = 17;
+            menuStrip1.TabIndex = 12;
             menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { saveFileMenuItem, loadFileToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { saveFileMenuItem, SaveFileAsToolStripMenuItem, loadFileToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(48, 20);
             fileToolStripMenuItem.Text = "Файл";
@@ -255,41 +253,26 @@ namespace CourseWork
             // saveFileMenuItem
             // 
             saveFileMenuItem.Name = "saveFileMenuItem";
-            saveFileMenuItem.Size = new Size(177, 22);
+            saveFileMenuItem.ShortcutKeyDisplayString = "Ctrl + s";
+            saveFileMenuItem.Size = new Size(254, 22);
             saveFileMenuItem.Text = "Зберегти файл";
             saveFileMenuItem.Click += saveFileMenuItem_Click;
+            // 
+            // SaveFileAsToolStripMenuItem
+            // 
+            SaveFileAsToolStripMenuItem.Name = "SaveFileAsToolStripMenuItem";
+            SaveFileAsToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl + Shift + s";
+            SaveFileAsToolStripMenuItem.Size = new Size(254, 22);
+            SaveFileAsToolStripMenuItem.Text = "Зберегти файл як";
+            SaveFileAsToolStripMenuItem.Click += SaveFileAsToolStripMenuItem_Click;
             // 
             // loadFileToolStripMenuItem
             // 
             loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
-            loadFileToolStripMenuItem.Size = new Size(177, 22);
+            loadFileToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl + L";
+            loadFileToolStripMenuItem.Size = new Size(254, 22);
             loadFileToolStripMenuItem.Text = "Завантажити файл";
             loadFileToolStripMenuItem.Click += loadFileMenuItem_Click;
-            // 
-            // manageToolStripMenuItem
-            // 
-            manageToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addCarToolStripMenuItem, addCustomerToolStripMenuItem, оформитиЗаявкуToolStripMenuItem });
-            manageToolStripMenuItem.Name = "manageToolStripMenuItem";
-            manageToolStripMenuItem.Size = new Size(77, 20);
-            manageToolStripMenuItem.Text = "Керування";
-            // 
-            // addCarToolStripMenuItem
-            // 
-            addCarToolStripMenuItem.Name = "addCarToolStripMenuItem";
-            addCarToolStripMenuItem.Size = new Size(172, 22);
-            addCarToolStripMenuItem.Text = "Додати авто";
-            // 
-            // addCustomerToolStripMenuItem
-            // 
-            addCustomerToolStripMenuItem.Name = "addCustomerToolStripMenuItem";
-            addCustomerToolStripMenuItem.Size = new Size(172, 22);
-            addCustomerToolStripMenuItem.Text = "Додати покупця";
-            // 
-            // оформитиЗаявкуToolStripMenuItem
-            // 
-            оформитиЗаявкуToolStripMenuItem.Name = "оформитиЗаявкуToolStripMenuItem";
-            оформитиЗаявкуToolStripMenuItem.Size = new Size(172, 22);
-            оформитиЗаявкуToolStripMenuItem.Text = "Оформити заявку";
             // 
             // helpToolStripMenuItem
             // 
@@ -301,14 +284,18 @@ namespace CourseWork
             // aboutToolStripMenuItem
             // 
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new Size(179, 22);
+            aboutToolStripMenuItem.ShortcutKeyDisplayString = "F1";
+            aboutToolStripMenuItem.Size = new Size(198, 22);
             aboutToolStripMenuItem.Text = "Про програму";
+            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
             // 
             // helpButtonsToolStripMenuItem
             // 
             helpButtonsToolStripMenuItem.Name = "helpButtonsToolStripMenuItem";
-            helpButtonsToolStripMenuItem.Size = new Size(179, 22);
+            helpButtonsToolStripMenuItem.ShortcutKeyDisplayString = "F2";
+            helpButtonsToolStripMenuItem.Size = new Size(198, 22);
             helpButtonsToolStripMenuItem.Text = "Допоміжні клавіші";
+            helpButtonsToolStripMenuItem.Click += helpButtonsToolStripMenuItem_Click;
             // 
             // CustomersPage
             // 
@@ -328,12 +315,15 @@ namespace CourseWork
             Controls.Add(btnDeleteCustomer);
             Controls.Add(btnAddNew);
             Controls.Add(dgvCustomers);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            KeyPreview = true;
             MaximizeBox = false;
             Name = "CustomersPage";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Менеджмент покупців";
+            Load += CustomersPage_Load;
+            KeyDown += CustomersPage_KeyDown;
             ((System.ComponentModel.ISupportInitialize)dgvCustomers).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
@@ -363,11 +353,8 @@ namespace CourseWork
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem saveFileMenuItem;
+        private ToolStripMenuItem SaveFileAsToolStripMenuItem;
         private ToolStripMenuItem loadFileToolStripMenuItem;
-        private ToolStripMenuItem manageToolStripMenuItem;
-        private ToolStripMenuItem addCarToolStripMenuItem;
-        private ToolStripMenuItem addCustomerToolStripMenuItem;
-        private ToolStripMenuItem оформитиЗаявкуToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem aboutToolStripMenuItem;
         private ToolStripMenuItem helpButtonsToolStripMenuItem;

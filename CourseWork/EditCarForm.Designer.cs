@@ -66,7 +66,6 @@
             cmbModels.Size = new Size(121, 23);
             cmbModels.Sorted = true;
             cmbModels.TabIndex = 1;
-
             // 
             // cmbCondition
             // 
@@ -207,6 +206,7 @@
             Controls.Add(cmbCondition);
             Controls.Add(cmbModels);
             Controls.Add(cmbBrand);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "EditCarForm";

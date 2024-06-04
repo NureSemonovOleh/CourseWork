@@ -42,11 +42,8 @@
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             saveFileMenuItem = new ToolStripMenuItem();
+            SaveFileAsToolStripMenuItem = new ToolStripMenuItem();
             loadFileToolStripMenuItem = new ToolStripMenuItem();
-            manageToolStripMenuItem = new ToolStripMenuItem();
-            addCarToolStripMenuItem = new ToolStripMenuItem();
-            addCustomerToolStripMenuItem = new ToolStripMenuItem();
-            оформитиЗаявкуToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             helpButtonsToolStripMenuItem = new ToolStripMenuItem();
@@ -69,7 +66,7 @@
             btnAddNew.Location = new Point(12, 325);
             btnAddNew.Name = "btnAddNew";
             btnAddNew.Size = new Size(131, 55);
-            btnAddNew.TabIndex = 1;
+            btnAddNew.TabIndex = 5;
             btnAddNew.Text = "Додати авто";
             btnAddNew.UseVisualStyleBackColor = true;
             btnAddNew.Click += btnAddNew_Click;
@@ -88,6 +85,7 @@
             dgvCars.ScrollBars = ScrollBars.Vertical;
             dgvCars.Size = new Size(585, 189);
             dgvCars.TabIndex = 2;
+            dgvCars.TabStop = false;
             // 
             // dgvTxtColumnId
             // 
@@ -160,7 +158,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, manageToolStripMenuItem, helpToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(597, 24);
@@ -169,7 +167,7 @@
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { saveFileMenuItem, loadFileToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { saveFileMenuItem, SaveFileAsToolStripMenuItem, loadFileToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(48, 20);
             fileToolStripMenuItem.Text = "Файл";
@@ -177,41 +175,26 @@
             // saveFileMenuItem
             // 
             saveFileMenuItem.Name = "saveFileMenuItem";
-            saveFileMenuItem.Size = new Size(177, 22);
+            saveFileMenuItem.ShortcutKeyDisplayString = "Ctrl + S";
+            saveFileMenuItem.Size = new Size(255, 22);
             saveFileMenuItem.Text = "Зберегти файл";
             saveFileMenuItem.Click += saveFileMenuItem_Click;
+            // 
+            // SaveFileAsToolStripMenuItem
+            // 
+            SaveFileAsToolStripMenuItem.Name = "SaveFileAsToolStripMenuItem";
+            SaveFileAsToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl + Shift + S";
+            SaveFileAsToolStripMenuItem.Size = new Size(255, 22);
+            SaveFileAsToolStripMenuItem.Text = "Зберегти файл як";
+            SaveFileAsToolStripMenuItem.Click += SaveFileAsToolStripMenuItem_Click;
             // 
             // loadFileToolStripMenuItem
             // 
             loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
-            loadFileToolStripMenuItem.Size = new Size(177, 22);
+            loadFileToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl + L";
+            loadFileToolStripMenuItem.Size = new Size(255, 22);
             loadFileToolStripMenuItem.Text = "Завантажити файл";
             loadFileToolStripMenuItem.Click += loadFileMenuItem_Click;
-            // 
-            // manageToolStripMenuItem
-            // 
-            manageToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addCarToolStripMenuItem, addCustomerToolStripMenuItem, оформитиЗаявкуToolStripMenuItem });
-            manageToolStripMenuItem.Name = "manageToolStripMenuItem";
-            manageToolStripMenuItem.Size = new Size(77, 20);
-            manageToolStripMenuItem.Text = "Керування";
-            // 
-            // addCarToolStripMenuItem
-            // 
-            addCarToolStripMenuItem.Name = "addCarToolStripMenuItem";
-            addCarToolStripMenuItem.Size = new Size(172, 22);
-            addCarToolStripMenuItem.Text = "Додати авто";
-            // 
-            // addCustomerToolStripMenuItem
-            // 
-            addCustomerToolStripMenuItem.Name = "addCustomerToolStripMenuItem";
-            addCustomerToolStripMenuItem.Size = new Size(172, 22);
-            addCustomerToolStripMenuItem.Text = "Додати покупця";
-            // 
-            // оформитиЗаявкуToolStripMenuItem
-            // 
-            оформитиЗаявкуToolStripMenuItem.Name = "оформитиЗаявкуToolStripMenuItem";
-            оформитиЗаявкуToolStripMenuItem.Size = new Size(172, 22);
-            оформитиЗаявкуToolStripMenuItem.Text = "Оформити заявку";
             // 
             // helpToolStripMenuItem
             // 
@@ -223,21 +206,25 @@
             // aboutToolStripMenuItem
             // 
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new Size(179, 22);
+            aboutToolStripMenuItem.ShortcutKeyDisplayString = "F1";
+            aboutToolStripMenuItem.Size = new Size(198, 22);
             aboutToolStripMenuItem.Text = "Про програму";
+            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
             // 
             // helpButtonsToolStripMenuItem
             // 
             helpButtonsToolStripMenuItem.Name = "helpButtonsToolStripMenuItem";
-            helpButtonsToolStripMenuItem.Size = new Size(179, 22);
+            helpButtonsToolStripMenuItem.ShortcutKeyDisplayString = "F2";
+            helpButtonsToolStripMenuItem.Size = new Size(198, 22);
             helpButtonsToolStripMenuItem.Text = "Допоміжні клавіші";
+            helpButtonsToolStripMenuItem.Click += helpButtonsToolStripMenuItem_Click;
             // 
             // btnCustomerPage
             // 
             btnCustomerPage.Location = new Point(232, 449);
             btnCustomerPage.Name = "btnCustomerPage";
             btnCustomerPage.Size = new Size(131, 29);
-            btnCustomerPage.TabIndex = 4;
+            btnCustomerPage.TabIndex = 10;
             btnCustomerPage.Text = "Сторінка \"Покупці\"";
             btnCustomerPage.UseVisualStyleBackColor = true;
             btnCustomerPage.Click += btnCustomerPage_Click;
@@ -247,7 +234,7 @@
             btnMainPage.Location = new Point(12, 449);
             btnMainPage.Name = "btnMainPage";
             btnMainPage.Size = new Size(131, 29);
-            btnMainPage.TabIndex = 5;
+            btnMainPage.TabIndex = 9;
             btnMainPage.Text = "Сторінка \"Авто\"";
             btnMainPage.UseVisualStyleBackColor = true;
             // 
@@ -256,7 +243,7 @@
             btnRequestPage.Location = new Point(454, 449);
             btnRequestPage.Name = "btnRequestPage";
             btnRequestPage.Size = new Size(131, 29);
-            btnRequestPage.TabIndex = 6;
+            btnRequestPage.TabIndex = 11;
             btnRequestPage.Text = "Сторінка \"Заявки\"";
             btnRequestPage.UseVisualStyleBackColor = true;
             btnRequestPage.Click += btnRequestPage_Click;
@@ -266,7 +253,7 @@
             btnDeleteCar.Location = new Point(232, 325);
             btnDeleteCar.Name = "btnDeleteCar";
             btnDeleteCar.Size = new Size(131, 55);
-            btnDeleteCar.TabIndex = 7;
+            btnDeleteCar.TabIndex = 6;
             btnDeleteCar.Text = "Видалити авто";
             btnDeleteCar.UseVisualStyleBackColor = true;
             btnDeleteCar.Click += btnDelete_Click;
@@ -286,7 +273,7 @@
             btnEdit.Location = new Point(232, 386);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(131, 57);
-            btnEdit.TabIndex = 9;
+            btnEdit.TabIndex = 7;
             btnEdit.Text = "Редагувати авто";
             btnEdit.UseVisualStyleBackColor = true;
             btnEdit.Click += btnEditCar_Click;
@@ -299,21 +286,21 @@
             cmbSearch.Location = new Point(12, 27);
             cmbSearch.Name = "cmbSearch";
             cmbSearch.Size = new Size(155, 23);
-            cmbSearch.TabIndex = 10;
+            cmbSearch.TabIndex = 1;
             // 
             // txtSearch
             // 
             txtSearch.Location = new Point(12, 56);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(118, 23);
-            txtSearch.TabIndex = 11;
+            txtSearch.TabIndex = 2;
             // 
             // btnSearch
             // 
             btnSearch.Location = new Point(12, 85);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(75, 23);
-            btnSearch.TabIndex = 12;
+            btnSearch.TabIndex = 3;
             btnSearch.Text = "Пошук";
             btnSearch.UseVisualStyleBackColor = true;
             btnSearch.Click += btnSearch_Click;
@@ -323,7 +310,7 @@
             btnSearchReset.Location = new Point(212, 27);
             btnSearchReset.Name = "btnSearchReset";
             btnSearchReset.Size = new Size(131, 52);
-            btnSearchReset.TabIndex = 13;
+            btnSearchReset.TabIndex = 4;
             btnSearchReset.Text = "Прибрати фільтр";
             btnSearchReset.UseVisualStyleBackColor = true;
             btnSearchReset.Click += btnSearchReset_Click;
@@ -349,12 +336,14 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             HelpButton = true;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            KeyPreview = true;
             MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             Name = "CarsPage";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Менеджмент автосалону";
             Load += MainWindow_Load;
+            KeyDown += CarsPage_KeyDown;
             ((System.ComponentModel.ISupportInitialize)dgvCars).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
@@ -369,10 +358,6 @@
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem saveFileMenuItem;
         private ToolStripMenuItem loadFileToolStripMenuItem;
-        private ToolStripMenuItem manageToolStripMenuItem;
-        private ToolStripMenuItem addCarToolStripMenuItem;
-        private ToolStripMenuItem addCustomerToolStripMenuItem;
-        private ToolStripMenuItem оформитиЗаявкуToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem aboutToolStripMenuItem;
         private ToolStripMenuItem helpButtonsToolStripMenuItem;
@@ -395,5 +380,6 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private ToolStripMenuItem SaveFileAsToolStripMenuItem;
     }
 }

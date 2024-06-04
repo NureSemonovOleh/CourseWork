@@ -10,13 +10,18 @@ namespace CourseWork
         {
             InitializeComponent();
             dataBase = new DataBase();
-            LoadFile();
+            dataBase.DataLoaded += DataBase_DataLoaded;
+            LoadFile(FilePath);
 
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-
+            dgvCars.ClearSelection();
+        }
+        private void DataBase_DataLoaded(object sender, EventArgs e)
+        {
+            UpdateCarList();
         }
         private void UpdateCarList()
         {
@@ -74,7 +79,7 @@ namespace CourseWork
             if (dgvCars.SelectedRows.Count > 0)
             {
                 var confirm = MessageBox.Show("Ви впевнені,що хочете видалити це авто?", "Підтвердження видалення",
-                    MessageBoxButtons.YesNo);
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (confirm == DialogResult.Yes)
                 {
                     int selectedCarId = (int)dgvCars.SelectedRows[0].Cells["dgvTxtColumnId"].Value;
@@ -110,7 +115,7 @@ namespace CourseWork
         {
             var confirm = MessageBox.Show("Ви впевнені," +
                 "що хочете видалити всі авто з таблиці?",
-                "Підтвердження видалення", MessageBoxButtons.YesNo);
+                "Підтвердження видалення", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (confirm == DialogResult.Yes)
             {
                 dataBase.Cars.Clear();
@@ -118,26 +123,57 @@ namespace CourseWork
                 MessageBox.Show("Всі автомобілі видалені");
             }
         }
-        private void SaveFile()
+        private void SaveFile(string filePath)
         {
-            dataBase.SaveFile(FilePath);
+            dataBase.SaveFile(filePath);
 
         }
-        private void LoadFile()
+        private void LoadFile(string filePath)
         {
-            dataBase.LoadFile(FilePath);
+            dataBase.LoadFile(filePath);
             UpdateCarList();
+        }
+        private void LoadFileAs()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "JSON файли (*.json)|*.json|Всі файли (*.*)|*.*",
+                Title = "Відкрити файл"
+            };
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                LoadFile(openFileDialog.FileName);
+                
+               
+                MessageBox.Show("Файл завантажено");
+            }
 
+        }
+        private void SaveFileAs()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "JSON файлы (*.json)|*.json|Все файлы (*.*)|*.*",
+                Title = "Зберегти як"
+            };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                SaveFile(saveFileDialog.FileName);
+                MessageBox.Show("Файл збережено");
+            }
         }
         private void saveFileMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFile();
-            MessageBox.Show("Файл збережено");
+            SaveFile(FilePath);
+            
         }
         private void loadFileMenuItem_Click(object sender, EventArgs e)
         {
-            LoadFile();
-            MessageBox.Show("Файл загружено");
+            LoadFileAs();
+        }
+        private void SaveFileAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileAs();
         }
 
         private void btnCustomerPage_Click(object sender, EventArgs e)
@@ -203,6 +239,46 @@ namespace CourseWork
             txtSearch.Clear();
             cmbSearch.SelectedIndex = -1;
             UpdateCarList();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var aboutProgram = new AboutProgramForm();
+            aboutProgram.ShowDialog();
+        }
+
+       
+
+        private void helpButtonsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var helpfulButtons = new HelpfulKeysForm();
+            helpfulButtons.ShowDialog();
+        }
+        private void CarsPage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                HelpfulKeysForm helpfulKeysForm = new HelpfulKeysForm();
+                helpfulKeysForm.ShowDialog();
+            }
+            else if (e.KeyCode == Keys.F2)
+            {
+               AboutProgramForm aboutProgramForm = new AboutProgramForm();
+                aboutProgramForm.ShowDialog();
+            }
+            else if (e.Control && e.KeyCode == Keys.S && !e.Shift)
+            {
+                SaveFile(FilePath);
+                MessageBox.Show("Файл збережено");
+            }
+            else if (e.Control && e.Shift && e.KeyCode == Keys.S)
+            {
+                SaveFileAs();
+            }
+            else if (e.Control && e.KeyCode == Keys.L)
+            {
+                LoadFileAs();
+            }
         }
     }
 }

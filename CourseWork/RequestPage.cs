@@ -22,10 +22,15 @@ namespace CourseWork
             this.mainWindow = mainWindow;
             UpdateRequest();
             FormClosing += RequestPage_FormClosing;
+            dataBase.DataLoaded += DataBase_DataLoaded;
         }
         private void RequestPage_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+        private void DataBase_DataLoaded(object sender, EventArgs e)
+        {
+            UpdateRequest();
         }
         private void UpdateRequest()
         {
@@ -132,9 +137,10 @@ namespace CourseWork
                 if (requestToChange != null)
                 {
                     var result = MessageBox.Show("Ви впевнені,що хочете змінити статус заявки?",
-                    "Підтвердження видалення",
-                    MessageBoxButtons.YesNo);
-                    if (result == DialogResult.Yes) {
+                    "Підтвердження змінення",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
+                    {
                         requestToChange.Status = "Готово";
                         UpdateRequest();
                         MessageBox.Show("Статус заявки змінено успішно");
@@ -150,26 +156,149 @@ namespace CourseWork
                 MessageBox.Show("Будь ласка, виберіть заявку для зміни статусу.");
             }
         }
-        private void SaveFile()
+        private void SaveFile(string filePath)
         {
-            dataBase.SaveFile(FilePath);
+            dataBase.SaveFile(filePath);
 
         }
-        private void LoadFile()
+        private void LoadFile(string filePath)
         {
-            dataBase.LoadFile(FilePath);
-            UpdateRequest();
+            dataBase.LoadFile(filePath);
 
+            UpdateRequest();
+        }
+        private void LoadFileAs()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "JSON файли (*.json)|*.json|Всі файли (*.*)|*.*",
+                Title = "Відкрити файл"
+            };
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                LoadFile(openFileDialog.FileName);
+                MessageBox.Show("Файл завантажено");
+            }
+
+        }
+        private void SaveFileAs()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "JSON файлы (*.json)|*.json|Все файлы (*.*)|*.*",
+                Title = "Зберегти як"
+            };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                SaveFile(saveFileDialog.FileName);
+                MessageBox.Show("Файл збережено");
+            }
         }
         private void saveFileMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFile();
-            MessageBox.Show("Файл збережено");
+            SaveFile(FilePath);
+
         }
         private void loadFileMenuItem_Click(object sender, EventArgs e)
         {
-            LoadFile();
-            MessageBox.Show("Файл загружено");
+            LoadFileAs();
+        }
+        private void SaveFileAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileAs();
+        }
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var aboutProgram = new AboutProgramForm();
+            aboutProgram.ShowDialog();
+        }
+        private void helpButtonsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var helpfulButtons = new HelpfulKeysForm();
+            helpfulButtons.ShowDialog();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string filter = cmbSearch.SelectedItem?.ToString();
+            string searchValue = txtSearch.Text;
+
+            var filteredRequests = dataBase.Requests.AsQueryable();
+
+            if (!string.IsNullOrEmpty(filter) && !string.IsNullOrEmpty(searchValue))
+            {
+                switch (filter)
+                {
+                    case "ID":
+                        if (int.TryParse(searchValue, out int id))
+                        {
+                            filteredRequests = filteredRequests.Where(c => c.Id == id);
+                        }
+                        break;
+                    case "Ім'я клієнта":
+                        filteredRequests = filteredRequests.Where(c => c.CustomerName.Contains(searchValue, StringComparison.OrdinalIgnoreCase));
+                        break;
+                    case "Статус":
+
+
+                        filteredRequests = filteredRequests.Where(r => r.Status.Contains(searchValue, StringComparison.OrdinalIgnoreCase));
+
+                        break;
+                }
+                dgvRequests.Rows.Clear();
+                foreach (var request in filteredRequests.ToList())
+                {
+                    dgvRequests.Rows.Add(
+                    request.Id,
+                    request.CarId,
+                    request.CustomerName,
+                    request.CustomerNumber,
+                    request.Status,
+                    request.RequestDate);
+                }
+            }
+        }
+
+        private void btnSearchReset_Click(object sender, EventArgs e)
+        {
+            txtSearch.Clear();
+            cmbSearch.SelectedIndex = -1;
+            UpdateRequest();
+        }
+        private void RequestPage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                HelpfulKeysForm helpfulKeysForm = new HelpfulKeysForm();
+                helpfulKeysForm.ShowDialog();
+            }
+            else if (e.KeyCode == Keys.F2)
+            {
+                AboutProgramForm aboutProgramForm = new AboutProgramForm();
+                aboutProgramForm.ShowDialog();
+            }
+            else if (e.Control && e.KeyCode == Keys.S && !e.Shift)
+            {
+                SaveFile(FilePath);
+                MessageBox.Show("Файл збережено");
+            }
+            else if (e.Control && e.Shift && e.KeyCode == Keys.S)
+            {
+                SaveFileAs();
+            }
+            else if (e.Control && e.KeyCode == Keys.L)
+            {
+                LoadFileAs();
+            }
+        }
+        private void RequestPage_Load(object sender, EventArgs e)
+        {
+            dgvRequests.ClearSelection();
+        }
+
+        private void btnRequestPage_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

@@ -68,6 +68,8 @@
             Controls.Add(btnAddRequest);
             Controls.Add(cmbCars);
             Controls.Add(cmbCustomer);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
             Name = "AddRequestForm";
             Text = "Додати заявку";
             ResumeLayout(false);

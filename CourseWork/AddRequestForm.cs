@@ -42,12 +42,13 @@ namespace CourseWork
                 car.Condition == customer.PrefferedCondition &&
                 car.Price <= customer.Budget).Select
                 (car => new {
-                    Display = $"{car.Brand} {car.Model} ({car.Year}, {car.Condition})",
+                    Display = $"{car.Brand} {car.Model} ({car.Year}, {car.Condition}, {car.Price})",
                     Value = car
                 }).ToList();
             if (neededCars.Count == 0)
             {
-                cmbCars.DataSource = new[] { new { Display = "Нема доступних авто", Value = (Car)null } };
+                cmbCars.DataSource = null;
+                cmbCars.Text = "Немає підходяших авто";
                 cmbCars.Enabled = false;
                 
             }

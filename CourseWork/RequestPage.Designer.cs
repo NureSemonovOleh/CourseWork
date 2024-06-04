@@ -43,14 +43,15 @@
             btnDeleteRequest = new Button();
             btnDeleteAll = new Button();
             btnChangeStatus = new Button();
+            cmbSearch = new ComboBox();
+            txtSearch = new TextBox();
+            btnSearch = new Button();
+            btnSearchReset = new Button();
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             saveFileMenuItem = new ToolStripMenuItem();
+            SaveFileAsToolStripMenuItem = new ToolStripMenuItem();
             loadFileToolStripMenuItem = new ToolStripMenuItem();
-            manageToolStripMenuItem = new ToolStripMenuItem();
-            addCarToolStripMenuItem = new ToolStripMenuItem();
-            addCustomerToolStripMenuItem = new ToolStripMenuItem();
-            оформитиЗаявкуToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             helpButtonsToolStripMenuItem = new ToolStripMenuItem();
@@ -70,7 +71,7 @@
             dgvRequests.Name = "dgvRequests";
             dgvRequests.Size = new Size(534, 150);
             dgvRequests.TabIndex = 0;
-            dgvRequests.UseWaitCursor = true;
+            dgvRequests.TabStop = false;
             // 
             // Id
             // 
@@ -116,10 +117,9 @@
             btnCustomerPage.Location = new Point(224, 449);
             btnCustomerPage.Name = "btnCustomerPage";
             btnCustomerPage.Size = new Size(131, 29);
-            btnCustomerPage.TabIndex = 5;
+            btnCustomerPage.TabIndex = 10;
             btnCustomerPage.Text = "Сторінка \"Покупці\"";
             btnCustomerPage.UseVisualStyleBackColor = true;
-            btnCustomerPage.UseWaitCursor = true;
             btnCustomerPage.Click += btnCustomerPage_Click;
             // 
             // btnRequestPage
@@ -127,20 +127,19 @@
             btnRequestPage.Location = new Point(454, 449);
             btnRequestPage.Name = "btnRequestPage";
             btnRequestPage.Size = new Size(131, 29);
-            btnRequestPage.TabIndex = 7;
+            btnRequestPage.TabIndex = 11;
             btnRequestPage.Text = "Сторінка \"Заявки\"";
             btnRequestPage.UseVisualStyleBackColor = true;
-            btnRequestPage.UseWaitCursor = true;
+            btnRequestPage.Click += btnRequestPage_Click;
             // 
             // btnCarsPage
             // 
             btnCarsPage.Location = new Point(12, 449);
             btnCarsPage.Name = "btnCarsPage";
             btnCarsPage.Size = new Size(131, 29);
-            btnCarsPage.TabIndex = 8;
+            btnCarsPage.TabIndex = 9;
             btnCarsPage.Text = "Сторінка \"Авто\"";
             btnCarsPage.UseVisualStyleBackColor = true;
-            btnCarsPage.UseWaitCursor = true;
             btnCarsPage.Click += btnMainPage_Click;
             // 
             // btnAddRequest
@@ -148,10 +147,9 @@
             btnAddRequest.Location = new Point(12, 319);
             btnAddRequest.Name = "btnAddRequest";
             btnAddRequest.Size = new Size(142, 42);
-            btnAddRequest.TabIndex = 10;
+            btnAddRequest.TabIndex = 5;
             btnAddRequest.Text = "Додати заявку";
             btnAddRequest.UseVisualStyleBackColor = true;
-            btnAddRequest.UseWaitCursor = true;
             btnAddRequest.Click += btnAddRequest_Click;
             // 
             // btnDeleteRequest
@@ -159,10 +157,9 @@
             btnDeleteRequest.Location = new Point(213, 319);
             btnDeleteRequest.Name = "btnDeleteRequest";
             btnDeleteRequest.Size = new Size(142, 42);
-            btnDeleteRequest.TabIndex = 11;
+            btnDeleteRequest.TabIndex = 6;
             btnDeleteRequest.Text = "Видалити заявку";
             btnDeleteRequest.UseVisualStyleBackColor = true;
-            btnDeleteRequest.UseWaitCursor = true;
             btnDeleteRequest.Click += btnDeleteRequest_Click;
             // 
             // btnDeleteAll
@@ -170,10 +167,9 @@
             btnDeleteAll.Location = new Point(404, 319);
             btnDeleteAll.Name = "btnDeleteAll";
             btnDeleteAll.Size = new Size(142, 42);
-            btnDeleteAll.TabIndex = 12;
+            btnDeleteAll.TabIndex = 7;
             btnDeleteAll.Text = "Видалити все";
             btnDeleteAll.UseVisualStyleBackColor = true;
-            btnDeleteAll.UseWaitCursor = true;
             btnDeleteAll.Click += btnDeleteAll_Click;
             // 
             // btnChangeStatus
@@ -181,25 +177,60 @@
             btnChangeStatus.Location = new Point(213, 367);
             btnChangeStatus.Name = "btnChangeStatus";
             btnChangeStatus.Size = new Size(142, 40);
-            btnChangeStatus.TabIndex = 13;
+            btnChangeStatus.TabIndex = 8;
             btnChangeStatus.Text = "Статус \"Готово\"";
             btnChangeStatus.UseVisualStyleBackColor = true;
-            btnChangeStatus.UseWaitCursor = true;
             btnChangeStatus.Click += btnChangeStatus_Click;
+            // 
+            // cmbSearch
+            // 
+            cmbSearch.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbSearch.FormattingEnabled = true;
+            cmbSearch.Items.AddRange(new object[] { "ID", "Ім'я клієнта", "Статус" });
+            cmbSearch.Location = new Point(12, 27);
+            cmbSearch.Name = "cmbSearch";
+            cmbSearch.Size = new Size(155, 23);
+            cmbSearch.TabIndex = 1;
+            // 
+            // txtSearch
+            // 
+            txtSearch.Location = new Point(12, 56);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(118, 23);
+            txtSearch.TabIndex = 2;
+            // 
+            // btnSearch
+            // 
+            btnSearch.Location = new Point(12, 85);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(75, 23);
+            btnSearch.TabIndex = 3;
+            btnSearch.Text = "Пошук";
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
+            // 
+            // btnSearchReset
+            // 
+            btnSearchReset.Location = new Point(213, 27);
+            btnSearchReset.Name = "btnSearchReset";
+            btnSearchReset.Size = new Size(131, 52);
+            btnSearchReset.TabIndex = 4;
+            btnSearchReset.Text = "Прибрати фільтр";
+            btnSearchReset.UseVisualStyleBackColor = true;
+            btnSearchReset.Click += btnSearchReset_Click;
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, manageToolStripMenuItem, helpToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(597, 24);
-            menuStrip1.TabIndex = 14;
+            menuStrip1.TabIndex = 12;
             menuStrip1.Text = "menuStrip1";
-            menuStrip1.UseWaitCursor = true;
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { saveFileMenuItem, loadFileToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { saveFileMenuItem, SaveFileAsToolStripMenuItem, loadFileToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(48, 20);
             fileToolStripMenuItem.Text = "Файл";
@@ -207,41 +238,26 @@
             // saveFileMenuItem
             // 
             saveFileMenuItem.Name = "saveFileMenuItem";
-            saveFileMenuItem.Size = new Size(177, 22);
+            saveFileMenuItem.ShortcutKeyDisplayString = "Ctrl + S";
+            saveFileMenuItem.Size = new Size(255, 22);
             saveFileMenuItem.Text = "Зберегти файл";
             saveFileMenuItem.Click += saveFileMenuItem_Click;
+            // 
+            // SaveFileAsToolStripMenuItem
+            // 
+            SaveFileAsToolStripMenuItem.Name = "SaveFileAsToolStripMenuItem";
+            SaveFileAsToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl + Shift + S";
+            SaveFileAsToolStripMenuItem.Size = new Size(255, 22);
+            SaveFileAsToolStripMenuItem.Text = "Зберегти файл як";
+            SaveFileAsToolStripMenuItem.Click += SaveFileAsToolStripMenuItem_Click;
             // 
             // loadFileToolStripMenuItem
             // 
             loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
-            loadFileToolStripMenuItem.Size = new Size(177, 22);
+            loadFileToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl + L";
+            loadFileToolStripMenuItem.Size = new Size(255, 22);
             loadFileToolStripMenuItem.Text = "Завантажити файл";
             loadFileToolStripMenuItem.Click += loadFileMenuItem_Click;
-            // 
-            // manageToolStripMenuItem
-            // 
-            manageToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addCarToolStripMenuItem, addCustomerToolStripMenuItem, оформитиЗаявкуToolStripMenuItem });
-            manageToolStripMenuItem.Name = "manageToolStripMenuItem";
-            manageToolStripMenuItem.Size = new Size(77, 20);
-            manageToolStripMenuItem.Text = "Керування";
-            // 
-            // addCarToolStripMenuItem
-            // 
-            addCarToolStripMenuItem.Name = "addCarToolStripMenuItem";
-            addCarToolStripMenuItem.Size = new Size(172, 22);
-            addCarToolStripMenuItem.Text = "Додати авто";
-            // 
-            // addCustomerToolStripMenuItem
-            // 
-            addCustomerToolStripMenuItem.Name = "addCustomerToolStripMenuItem";
-            addCustomerToolStripMenuItem.Size = new Size(172, 22);
-            addCustomerToolStripMenuItem.Text = "Додати покупця";
-            // 
-            // оформитиЗаявкуToolStripMenuItem
-            // 
-            оформитиЗаявкуToolStripMenuItem.Name = "оформитиЗаявкуToolStripMenuItem";
-            оформитиЗаявкуToolStripMenuItem.Size = new Size(172, 22);
-            оформитиЗаявкуToolStripMenuItem.Text = "Оформити заявку";
             // 
             // helpToolStripMenuItem
             // 
@@ -253,14 +269,18 @@
             // aboutToolStripMenuItem
             // 
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new Size(179, 22);
+            aboutToolStripMenuItem.ShortcutKeyDisplayString = "F1";
+            aboutToolStripMenuItem.Size = new Size(198, 22);
             aboutToolStripMenuItem.Text = "Про програму";
+            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
             // 
             // helpButtonsToolStripMenuItem
             // 
             helpButtonsToolStripMenuItem.Name = "helpButtonsToolStripMenuItem";
-            helpButtonsToolStripMenuItem.Size = new Size(179, 22);
+            helpButtonsToolStripMenuItem.ShortcutKeyDisplayString = "F2";
+            helpButtonsToolStripMenuItem.Size = new Size(198, 22);
             helpButtonsToolStripMenuItem.Text = "Допоміжні клавіші";
+            helpButtonsToolStripMenuItem.Click += helpButtonsToolStripMenuItem_Click;
             // 
             // RequestPage
             // 
@@ -268,6 +288,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(597, 490);
             Controls.Add(menuStrip1);
+            Controls.Add(btnSearchReset);
+            Controls.Add(btnSearch);
+            Controls.Add(txtSearch);
+            Controls.Add(cmbSearch);
             Controls.Add(btnChangeStatus);
             Controls.Add(btnDeleteAll);
             Controls.Add(btnDeleteRequest);
@@ -278,11 +302,14 @@
             Controls.Add(dgvRequests);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            KeyPreview = true;
             MaximizeBox = false;
+            MinimizeBox = false;
             Name = "RequestPage";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Менедж заявок";
-            UseWaitCursor = true;
+            Text = "Менеджмент заявок";
+            Load += RequestPage_Load;
+            KeyDown += RequestPage_KeyDown;
             ((System.ComponentModel.ISupportInitialize)dgvRequests).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
@@ -306,14 +333,15 @@
         private DataGridViewTextBoxColumn RequestDate;
         private Button btnDeleteAll;
         private Button btnChangeStatus;
+        private ComboBox cmbSearch;
+        private TextBox txtSearch;
+        private Button btnSearch;
+        private Button btnSearchReset;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem saveFileMenuItem;
+        private ToolStripMenuItem SaveFileAsToolStripMenuItem;
         private ToolStripMenuItem loadFileToolStripMenuItem;
-        private ToolStripMenuItem manageToolStripMenuItem;
-        private ToolStripMenuItem addCarToolStripMenuItem;
-        private ToolStripMenuItem addCustomerToolStripMenuItem;
-        private ToolStripMenuItem оформитиЗаявкуToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem aboutToolStripMenuItem;
         private ToolStripMenuItem helpButtonsToolStripMenuItem;

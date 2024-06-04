@@ -83,11 +83,10 @@
             // 
             cmbPrefferedCondition.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPrefferedCondition.FormattingEnabled = true;
-            cmbPrefferedCondition.Sorted = true;
-          
             cmbPrefferedCondition.Location = new Point(12, 220);
             cmbPrefferedCondition.Name = "cmbPrefferedCondition";
             cmbPrefferedCondition.Size = new Size(120, 23);
+            cmbPrefferedCondition.Sorted = true;
             cmbPrefferedCondition.TabIndex = 5;
             // 
             // txtBudget
@@ -179,8 +178,11 @@
             Controls.Add(cmbPrefferedBrand);
             Controls.Add(txtNumber);
             Controls.Add(txtName);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "AddCustomerForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Додати покупця";
             ResumeLayout(false);
             PerformLayout();

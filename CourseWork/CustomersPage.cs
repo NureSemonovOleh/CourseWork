@@ -23,6 +23,7 @@ namespace CourseWork
             mainWindow = mainwindow;
             UpdateCustomers();
             FormClosing += CustomersPage_FormClosing;
+            dataBase.DataLoaded += DataBase_DataLoaded;
 
         }
 
@@ -34,6 +35,10 @@ namespace CourseWork
 
         }
 
+        private void DataBase_DataLoaded(object sender, EventArgs e)
+        {
+            UpdateCustomers();
+        }
         private void UpdateCustomers()
         {
             dgvCustomers.Rows.Clear();
@@ -53,12 +58,15 @@ namespace CourseWork
         {
 
             mainWindow.Show();
+            
+
             this.Hide();
         }
         private void btnRequestPage_Click(object sender, EventArgs e)
         {
             var requestPage = new RequestPage(dataBase, mainWindow);
             requestPage.Show();
+            
             this.Hide();
 
         }
@@ -80,7 +88,7 @@ namespace CourseWork
             {
                 var confirm = MessageBox.Show("Ви впевнені,що хочете видалити цього покупця?",
                     "Підтвердження видалення",
-                    MessageBoxButtons.YesNo);
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (confirm == DialogResult.Yes)
                 {
                     int selectedCustomerId = (int)dgvCustomers.SelectedRows[0].Cells["dgvTxtId"].Value;
@@ -117,7 +125,7 @@ namespace CourseWork
         {
             var confirm = MessageBox.Show("Ви впевнені," +
                 "що хочете видалити всіх клієнтів з таблиці?",
-                "Підтвердження видалення", MessageBoxButtons.YesNo);
+                "Підтвердження видалення", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (confirm == DialogResult.Yes)
             {
                 dataBase.Customers.Clear();
@@ -192,7 +200,7 @@ namespace CourseWork
                     customer.Budget);
                 }
             }
-            
+
         }
 
         private void btnSearchReset_Click(object sender, EventArgs e)
@@ -201,26 +209,96 @@ namespace CourseWork
             cmbSearch.SelectedIndex = -1;
             UpdateCustomers();
         }
-        private void SaveFile()
+        private void SaveFile(string filePath)
         {
-            dataBase.SaveFile(FilePath);
+            dataBase.SaveFile(filePath);
 
         }
-        private void LoadFile()
+        private void LoadFile(string filePath)
         {
-            dataBase.LoadFile(FilePath);
+            dataBase.LoadFile(filePath);
+            
             UpdateCustomers();
+        }
+        private void LoadFileAs()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "JSON файли (*.json)|*.json|Всі файли (*.*)|*.*",
+                Title = "Відкрити файл"
+            };
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                LoadFile(openFileDialog.FileName);
+                MessageBox.Show("Файл завантажено");
+            }
 
+        }
+        private void SaveFileAs()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "JSON файлы (*.json)|*.json|Все файлы (*.*)|*.*",
+                Title = "Зберегти як"
+            };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                SaveFile(saveFileDialog.FileName);
+                MessageBox.Show("Файл збережено");
+            }
         }
         private void saveFileMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFile();
-            MessageBox.Show("Файл збережено");
+            SaveFile(FilePath);
+
         }
         private void loadFileMenuItem_Click(object sender, EventArgs e)
         {
-            LoadFile();
-            MessageBox.Show("Файл загружено");
+            LoadFileAs();
+        }
+        private void SaveFileAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileAs();
+        }
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var aboutProgram = new AboutProgramForm();
+            aboutProgram.ShowDialog();
+        }
+        private void helpButtonsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var helpfulButtons = new HelpfulKeysForm();
+            helpfulButtons.ShowDialog();
+        }
+        private void CustomersPage_Load(object sender, EventArgs e)
+        {
+            dgvCustomers.ClearSelection();
+        }
+        private void CustomersPage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                HelpfulKeysForm helpfulKeysForm = new HelpfulKeysForm();
+                helpfulKeysForm.ShowDialog();
+            }
+            else if (e.KeyCode == Keys.F2)
+            {
+                AboutProgramForm aboutProgramForm = new AboutProgramForm();
+                aboutProgramForm.ShowDialog();
+            }
+            else if (e.Control && e.KeyCode == Keys.S && !e.Shift)
+            {
+                SaveFile(FilePath);
+                MessageBox.Show("Файл збережено");
+            }
+            else if (e.Control && e.Shift && e.KeyCode == Keys.S)
+            {
+                SaveFileAs();
+            }
+            else if (e.Control && e.KeyCode == Keys.L)
+            {
+                LoadFileAs();
+            }
         }
 
     }

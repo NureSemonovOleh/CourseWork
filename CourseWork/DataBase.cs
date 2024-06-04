@@ -17,6 +17,7 @@ namespace CourseWork
         public List<Customer> Customers = new List<Customer>();
         public List<Request> Requests = new List<Request>();
         public Dictionary<string, List<string>> carModels;
+        public event EventHandler DataLoaded;
         public DataBase() {
             InitializeCarModels();
         }
@@ -52,7 +53,12 @@ namespace CourseWork
                 Cars = data.Cars;
                 Customers = data.Customers;
                 Requests = data.Requests;
+                OnDataLoaded();
             }
+        }
+        protected virtual void OnDataLoaded()
+        {
+            DataLoaded?.Invoke(this, EventArgs.Empty);
         }
         
 

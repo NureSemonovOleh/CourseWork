@@ -205,6 +205,7 @@
             Controls.Add(cmbCondition);
             Controls.Add(cmbModels);
             Controls.Add(cmbBrand);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "AddCarForm";

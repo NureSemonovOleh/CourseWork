@@ -178,7 +178,10 @@
             Controls.Add(cmbPrefferedBrand);
             Controls.Add(txtNumber);
             Controls.Add(txtName);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
             Name = "EditCustomerForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Редагувати покупця";
             ResumeLayout(false);
             PerformLayout();
