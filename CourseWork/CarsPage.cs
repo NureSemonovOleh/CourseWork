@@ -2,27 +2,57 @@ namespace CourseWork
 {
     public partial class CarsPage : Form
     {
-
         private DataBase dataBase;
         private const string FilePath = "database.json";
+        private bool isAdminMode;
 
-        public CarsPage()
+        public CarsPage(bool isAdminMode)
         {
             InitializeComponent();
+            this.isAdminMode = isAdminMode;
             dataBase = new DataBase();
             dataBase.DataLoaded += DataBase_DataLoaded;
             LoadFile(FilePath);
+            FormClosing += CarsPage_FormClosing;
+            this.KeyPreview = true;
+            this.KeyDown += new KeyEventHandler(CarsPage_KeyDown);
+            ConfigureMode();
+        }
 
+        private void ConfigureMode()
+        {
+            btnAddNew.Visible = isAdminMode;
+            btnEdit.Visible = isAdminMode;
+            btnDeleteCar.Visible = isAdminMode;
+            btnDeleteAll.Visible = isAdminMode;
+            btnCustomerPage.Visible = isAdminMode;
+            btnCarsPage.Visible = isAdminMode;
+            btnRequestPage.Visible = isAdminMode;
+            menuStrip1.Visible = isAdminMode;
+            this.KeyPreview = isAdminMode;
+            
+            btnAddUserRequest.Visible = !isAdminMode;
+
+            
+        }
+        private void CarsPage_FormClosing(object? sender, FormClosingEventArgs e)
+        {
+
+
+            Application.Exit();
+
+        }
+
+        private void DataBase_DataLoaded(object sender, EventArgs e)
+        {
+            UpdateCarList();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
             dgvCars.ClearSelection();
         }
-        private void DataBase_DataLoaded(object sender, EventArgs e)
-        {
-            UpdateCarList();
-        }
+
         private void UpdateCarList()
         {
             dgvCars.Rows.Clear();
@@ -38,16 +68,19 @@ namespace CourseWork
                     car.Price);
             }
         }
+
         private void btnAddNew_Click(object sender, EventArgs e)
         {
             var addCarForm = new AddCarForm(dataBase);
             addCarForm.CarAdded += AddCarForm_CarAdded;
             addCarForm.ShowDialog();
         }
+
         private void AddCarForm_CarAdded(object sender, EventArgs e)
         {
             UpdateCarList();
         }
+
         private void btnEditCar_Click(object sender, EventArgs e)
         {
             if (dgvCars.SelectedRows.Count > 0)
@@ -70,10 +103,12 @@ namespace CourseWork
                 MessageBox.Show("Будь ласка, виберіть авто для редагування");
             }
         }
+
         private void EditCarForm_CarEdited(object sender, EventArgs e)
         {
             UpdateCarList();
         }
+
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (dgvCars.SelectedRows.Count > 0)
@@ -101,8 +136,8 @@ namespace CourseWork
             {
                 MessageBox.Show("Будь ласка,виберіть авто для видалення");
             }
-
         }
+
         private void RecalcId()
         {
             for (int i = 0; i < dataBase.Cars.Count; i++)
@@ -123,15 +158,22 @@ namespace CourseWork
                 MessageBox.Show("Всі автомобілі видалені");
             }
         }
+
         private void SaveFile(string filePath)
         {
             dataBase.SaveFile(filePath);
-
         }
+
         private void LoadFile(string filePath)
         {
             dataBase.LoadFile(filePath);
             UpdateCarList();
+        }
+        private void btnAddUserRequest_Click(object sender, EventArgs e)
+        {
+            var addUserRequestForm = new AddUserRequestForm(dataBase);
+            addUserRequestForm.ShowDialog();
+               
         }
         private void LoadFileAs()
         {
@@ -143,12 +185,10 @@ namespace CourseWork
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 LoadFile(openFileDialog.FileName);
-                
-               
                 MessageBox.Show("Файл завантажено");
             }
-
         }
+
         private void SaveFileAs()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog
@@ -162,15 +202,18 @@ namespace CourseWork
                 MessageBox.Show("Файл збережено");
             }
         }
+
         private void saveFileMenuItem_Click(object sender, EventArgs e)
         {
             SaveFile(FilePath);
-            
+            MessageBox.Show("Файл збережено");
         }
+
         private void loadFileMenuItem_Click(object sender, EventArgs e)
         {
             LoadFileAs();
         }
+
         private void SaveFileAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileAs();
@@ -181,8 +224,6 @@ namespace CourseWork
             var customerPage = new CustomersPage(dataBase, this);
             this.Hide();
             customerPage.Show();
-
-
         }
 
         private void btnRequestPage_Click(object sender, EventArgs e)
@@ -231,7 +272,6 @@ namespace CourseWork
                     car.EngineVolume,
                     car.Price);
             }
-
         }
 
         private void btnSearchReset_Click(object sender, EventArgs e)
@@ -247,13 +287,12 @@ namespace CourseWork
             aboutProgram.ShowDialog();
         }
 
-       
-
         private void helpButtonsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var helpfulButtons = new HelpfulKeysForm();
             helpfulButtons.ShowDialog();
         }
+
         private void CarsPage_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F1)
@@ -263,7 +302,7 @@ namespace CourseWork
             }
             else if (e.KeyCode == Keys.F2)
             {
-               AboutProgramForm aboutProgramForm = new AboutProgramForm();
+                AboutProgramForm aboutProgramForm = new AboutProgramForm();
                 aboutProgramForm.ShowDialog();
             }
             else if (e.Control && e.KeyCode == Keys.S && !e.Shift)
@@ -279,6 +318,31 @@ namespace CourseWork
             {
                 LoadFileAs();
             }
+            else if (e.KeyCode == Keys.Enter)
+            {
+               
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+               
+            }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Tab | Keys.Shift))
+            {
+                
+                SelectNextControl(ActiveControl, false, true, true, true);
+                return true;
+            }
+            else if (keyData == Keys.Tab)
+            {
+                
+                SelectNextControl(ActiveControl, true, true, true, true);
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

@@ -48,7 +48,7 @@
             aboutToolStripMenuItem = new ToolStripMenuItem();
             helpButtonsToolStripMenuItem = new ToolStripMenuItem();
             btnCustomerPage = new Button();
-            btnMainPage = new Button();
+            btnCarsPage = new Button();
             btnRequestPage = new Button();
             btnDeleteCar = new Button();
             btnDeleteAll = new Button();
@@ -57,6 +57,7 @@
             txtSearch = new TextBox();
             btnSearch = new Button();
             btnSearchReset = new Button();
+            btnAddUserRequest = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCars).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -229,14 +230,14 @@
             btnCustomerPage.UseVisualStyleBackColor = true;
             btnCustomerPage.Click += btnCustomerPage_Click;
             // 
-            // btnMainPage
+            // btnCarsPage
             // 
-            btnMainPage.Location = new Point(12, 449);
-            btnMainPage.Name = "btnMainPage";
-            btnMainPage.Size = new Size(131, 29);
-            btnMainPage.TabIndex = 9;
-            btnMainPage.Text = "Сторінка \"Авто\"";
-            btnMainPage.UseVisualStyleBackColor = true;
+            btnCarsPage.Location = new Point(12, 449);
+            btnCarsPage.Name = "btnCarsPage";
+            btnCarsPage.Size = new Size(131, 29);
+            btnCarsPage.TabIndex = 9;
+            btnCarsPage.Text = "Сторінка \"Авто\"";
+            btnCarsPage.UseVisualStyleBackColor = true;
             // 
             // btnRequestPage
             // 
@@ -315,11 +316,22 @@
             btnSearchReset.UseVisualStyleBackColor = true;
             btnSearchReset.Click += btnSearchReset_Click;
             // 
+            // btnAddUserRequest
+            // 
+            btnAddUserRequest.Location = new Point(232, 325);
+            btnAddUserRequest.Name = "btnAddUserRequest";
+            btnAddUserRequest.Size = new Size(131, 60);
+            btnAddUserRequest.TabIndex = 12;
+            btnAddUserRequest.Text = "Залишити заявку";
+            btnAddUserRequest.UseVisualStyleBackColor = true;
+            btnAddUserRequest.Click += btnAddUserRequest_Click;
+            // 
             // CarsPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(597, 490);
+            Controls.Add(btnAddUserRequest);
             Controls.Add(btnSearchReset);
             Controls.Add(btnSearch);
             Controls.Add(txtSearch);
@@ -328,7 +340,7 @@
             Controls.Add(btnDeleteAll);
             Controls.Add(btnDeleteCar);
             Controls.Add(btnRequestPage);
-            Controls.Add(btnMainPage);
+            Controls.Add(btnCarsPage);
             Controls.Add(btnCustomerPage);
             Controls.Add(dgvCars);
             Controls.Add(btnAddNew);
@@ -363,7 +375,7 @@
         private ToolStripMenuItem helpButtonsToolStripMenuItem;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private Button btnCustomerPage;
-        private Button btnMainPage;
+        private Button btnCarsPage;
         private Button btnRequestPage;
         private Button btnDeleteCar;
         private Button btnDeleteAll;
@@ -381,5 +393,6 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private ToolStripMenuItem SaveFileAsToolStripMenuItem;
+        private Button btnAddUserRequest;
     }
 }
